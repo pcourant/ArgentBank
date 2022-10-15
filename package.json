@@ -2,9 +2,14 @@
   "name": "pierrecourant-13-15102022",
   "private": true,
   "version": "0.0.0",
+  "engines": {
+    "npm": "please-use-yarn",
+    "yarn": ">= 3.2.4",
+    "node": ">= 16.18"
+  },
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 3001 --open",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
