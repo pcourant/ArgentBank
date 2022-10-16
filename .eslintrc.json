@@ -20,7 +20,7 @@
     "parserOptions": {
         "project": ["./tsconfig.json"]
     },
-    "plugins": ["@typescript-eslint"],
+    "plugins": ["react", "@typescript-eslint"],
     "root": true,
     "rules": {
         "indent": ["error", 4],
