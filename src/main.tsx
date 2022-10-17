@@ -7,19 +7,19 @@ import 'normalize.css';
 import './main.css';
 import Root from './routes/Root';
 import ErrorPage from './error-page';
-// import Contact from './routes/contact';
+import Home from './routes/Home';
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <Root />,
         errorElement: <ErrorPage />,
-        // children: [
-        //     {
-        //         path: 'contacts/:contactId',
-        //         element: <Contact />,
-        //     },
-        // ],
+        children: [
+            {
+                path: 'home',
+                element: <Home />,
+            },
+        ],
     },
 ]);
 

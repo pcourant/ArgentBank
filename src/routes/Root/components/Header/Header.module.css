@@ -1,0 +1,38 @@
+.mainNav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 20px;
+}
+
+.mainNav a {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* .mainNav a.router-link-exact-active {
+    color: #42b983;
+} */
+
+.mainNavLogo {
+    display: flex;
+    align-items: center;
+}
+
+.mainNavLogoImage {
+    width: 200px;
+    max-width: 100%;
+}
+
+.mainNavItem {
+    margin-right: 0.5rem;
+    text-decoration: none;
+}
+
+.mainNavItem:hover {
+    text-decoration: underline;
+}
+
+.mainNavItem i {
+    margin-right: 0.25rem;
+}
