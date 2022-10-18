@@ -1,0 +1,12 @@
+.signInContent {
+    box-sizing: border-box;
+    width: 300px;
+    padding: 2rem;
+    margin: 0 auto;
+    margin-top: 3rem;
+    background-color: white;
+}
+
+.signInIcon {
+    font-size: 5rem;
+}

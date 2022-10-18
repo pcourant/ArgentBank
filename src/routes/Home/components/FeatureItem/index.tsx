@@ -1,13 +1,13 @@
 import { FunctionComponent, PropsWithChildren } from 'react';
 import styles from './FeatureItem.module.css';
 
-type Props = PropsWithChildren<{
+type FeatureItemProps = PropsWithChildren<{
     icon?: string;
     alt?: string;
     title?: string;
 }>;
 
-const FeatureItem: FunctionComponent<Props> = ({
+const FeatureItem: FunctionComponent<FeatureItemProps> = ({
     icon = '',
     alt = '',
     title = '',
