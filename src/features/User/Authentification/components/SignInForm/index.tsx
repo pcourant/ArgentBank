@@ -21,7 +21,9 @@ const SignInForm = () => {
                 <FormField type="checkbox" name="remember-me">
                     Remember me
                 </FormField>
-                <PrimaryButton>Sign In</PrimaryButton>
+                <PrimaryButton overriddenClass={styles.signInButton}>
+                    Sign In
+                </PrimaryButton>
             </Form>
         </section>
     );
