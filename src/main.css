@@ -6,7 +6,15 @@ html {
     -moz-osx-font-smoothing: grayscale;
 }
 
-body {
+/* body {
+    display: flex;
+    flex-direction: column;
+    min-width: 325px;
+    min-height: 100vh;
+    margin: 0;
+} */
+
+#root {
     display: flex;
     flex-direction: column;
     min-width: 325px;
