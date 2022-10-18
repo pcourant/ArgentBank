@@ -16,7 +16,11 @@
         "noEmit": true,
         "jsx": "react-jsx",
         "noImplicitAny": true,
-        "preserveConstEnums": true
+        "preserveConstEnums": true,
+        "baseUrl": ".",
+        "paths": {
+            "@features/*": ["src/features/*"]
+        }
     },
     "include": ["src"],
     "exclude": ["node_modules", "**/*.spec.ts"],

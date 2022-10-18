@@ -1,5 +1,4 @@
-import React from 'react';
-import { SignInForm } from '../../features/User';
+import { SignInForm } from '@features/User';
 
 const SignIn = () => {
     return (
