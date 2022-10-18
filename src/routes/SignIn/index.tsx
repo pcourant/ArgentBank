@@ -1,11 +1,15 @@
 import React from 'react';
 import styles from './SignIn.module.css';
 
+import cx from 'classnames';
+
 const SignIn = () => {
     return (
-        <main className={`${styles.main} ${styles.bgDark}`}>
+        <main className={cx(styles.main, styles.bgDark)}>
             <section className={styles.signInContent}>
-                <i className={`fa fa-user-circle ${styles.signInIcon}`}></i>
+                <i
+                    className={cx('fa', 'fa-user-circle', styles.signInIcon)}
+                ></i>
                 <h1>Sign In</h1>
                 <form>
                     <div className={styles.inputWrapper}>
