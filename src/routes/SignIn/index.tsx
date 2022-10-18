@@ -5,7 +5,7 @@ import cx from 'classnames';
 
 const SignIn = () => {
     return (
-        <main className={cx(styles.main, styles.bgDark)}>
+        <main className={'main bg-dark'}>
             <section className={styles.signInContent}>
                 <i
                     className={cx('fa', 'fa-user-circle', styles.signInIcon)}

@@ -6,20 +6,23 @@ html {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* body {
-    display: flex;
-    flex-direction: column;
+body {
     min-width: 325px;
-    min-height: 100vh;
     margin: 0;
-} */
+}
 
 #root {
     display: flex;
     flex-direction: column;
-    min-width: 325px;
     min-height: 100vh;
-    margin: 0;
+}
+
+.main {
+    flex: 1;
+}
+
+.bg-dark {
+    background-color: #12002b;
 }
 
 .sr-only {
