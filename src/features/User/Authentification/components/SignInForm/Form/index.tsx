@@ -1,6 +1,6 @@
-import { FunctionComponent, PropsWithChildren } from 'react';
+import { FunctionComponent } from 'react';
 
-type FormProps = PropsWithChildren<{}>;
+type FormProps = { children?: React.ReactNode };
 
 const Form: FunctionComponent<FormProps> = ({ children }) => {
     return <form>{children}</form>;

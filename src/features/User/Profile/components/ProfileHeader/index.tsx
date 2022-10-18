@@ -1,5 +1,3 @@
-import { FunctionComponent, PropsWithChildren } from 'react';
-
 import styles from './ProfileHeader.module.css';
 import PrimaryButton from 'src/components/PrimaryButton';
 
