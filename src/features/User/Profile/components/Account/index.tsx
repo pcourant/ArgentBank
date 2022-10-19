@@ -1,22 +1,25 @@
-import { FunctionComponent, PropsWithChildren } from 'react';
+import { ElementType, HTMLAttributes, FunctionComponent } from 'react';
 import cx from 'classnames';
 
 import styles from './Account.module.css';
 import PrimaryButton from 'src/components/PrimaryButton';
 
-type AccountProps = PropsWithChildren<{
+interface AccountProps extends HTMLAttributes<HTMLOrSVGElement> {
+    as?: ElementType;
     title?: string;
     description?: string;
     amount?: string;
-}>;
+    children?: React.ReactNode;
+}
 
 const Account: FunctionComponent<AccountProps> = ({
+    as: Tag = 'div',
     title = '',
     description = '',
     amount = '',
 }) => {
     return (
-        <section className={styles.account}>
+        <Tag className={styles.account}>
             <div className={styles.accountContentWrapper}>
                 <h3 className={styles.accountTitle}>{title}</h3>
                 <p className={styles.accountAmount}>{amount}</p>
@@ -27,7 +30,7 @@ const Account: FunctionComponent<AccountProps> = ({
                     View transactions
                 </PrimaryButton>
             </div>
-        </section>
+        </Tag>
     );
 };
 
