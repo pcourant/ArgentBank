@@ -26,7 +26,7 @@ const Account: FunctionComponent<AccountProps> = ({
                 <p className={styles.accountAmountDescription}>{description}</p>
             </div>
             <div className={cx(styles.accountContentWrapper, styles.cta)}>
-                <PrimaryButton overriddenClass={styles.transactionButton}>
+                <PrimaryButton className={styles.transactionButton}>
                     View transactions
                 </PrimaryButton>
             </div>

@@ -3,16 +3,14 @@ import cx from 'classnames';
 
 import styles from './PrimaryButton.module.css';
 
-type PrimaryButtonProps = PropsWithChildren<{ overriddenClass?: string }>;
+type PrimaryButtonProps = PropsWithChildren<{ className?: string }>;
 
 const PrimaryButton: FunctionComponent<PrimaryButtonProps> = ({
-    overriddenClass,
+    className,
     children,
 }) => {
     return (
-        <button className={cx(styles.primaryButton, overriddenClass)}>
-            {children}
-        </button>
+        <button className={cx(styles.default, className)}>{children}</button>
     );
 };
 

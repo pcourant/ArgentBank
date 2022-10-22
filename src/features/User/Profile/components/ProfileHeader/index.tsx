@@ -9,7 +9,7 @@ const Header = () => {
                 <br />
                 Tony Jarvis!
             </h1>
-            <PrimaryButton overriddenClass={styles.editButton}>
+            <PrimaryButton className={styles.editButton}>
                 Edit Name
             </PrimaryButton>
         </div>
