@@ -2,12 +2,13 @@
     "name": "pierrecourant-13-15102022",
     "private": true,
     "version": "0.0.0",
-    "engines": {
-        "npm": "please-use-yarn",
-        "yarn": ">= 3.2.4",
-        "node": ">= 16.18"
-    },
     "type": "module",
+    "engines": {
+        "npm": "please-use-pnpm",
+        "yarn": "please-use-pnpm",
+        "node": ">= 16.18",
+        "pnpm": ">=3"
+    },
     "scripts": {
         "preinstall": "npx only-allow pnpm",
         "dev": "vite --port 3000 --open",
@@ -24,7 +25,7 @@
     },
     "devDependencies": {
         "@types/node": "^18.11.3",
-        "@types/react": "^18.0.21",
+        "@types/react": "^18.0.17",
         "@types/react-dom": "^18.0.6",
         "@types/react-router-dom": "^5.3.3",
         "@typescript-eslint/eslint-plugin": "^5.40.1",
@@ -42,8 +43,8 @@
         "stylelint-config-prettier": "^9.0.3",
         "stylelint-config-recess-order": "^3.0.0",
         "stylelint-config-standard": "^29.0.0",
-        "typescript": "^4.8.4",
-        "vite": "^3.1.8",
+        "typescript": "^4.6.4",
+        "vite": "^3.1.0",
         "vite-plugin-checker": "^0.5.1",
         "vite-tsconfig-paths": "^3.5.2"
     }

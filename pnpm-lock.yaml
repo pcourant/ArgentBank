@@ -1,65 +1,64 @@
 lockfileVersion: 5.4
 
-importers:
+specifiers:
+  '@types/node': ^18.11.3
+  '@types/react': ^18.0.17
+  '@types/react-dom': ^18.0.6
+  '@types/react-router-dom': ^5.3.3
+  '@typescript-eslint/eslint-plugin': ^5.40.1
+  '@typescript-eslint/parser': ^5.40.1
+  '@vitejs/plugin-react': ^2.1.0
+  classnames: ^2.3.2
+  eslint: ^8.26.0
+  eslint-config-prettier: ^8.5.0
+  eslint-plugin-prettier: ^4.2.1
+  eslint-plugin-react: ^7.31.10
+  eslint-plugin-react-hooks: ^4.6.0
+  meow: ^11.0.0
+  optionator: ^0.9.1
+  prettier: ^2.7.1
+  react: ^18.2.0
+  react-dom: ^18.2.0
+  react-router-dom: ^6.4.2
+  stylelint: ^14.14.0
+  stylelint-config-prettier: ^9.0.3
+  stylelint-config-recess-order: ^3.0.0
+  stylelint-config-standard: ^29.0.0
+  typescript: ^4.6.4
+  vite: ^3.1.0
+  vite-plugin-checker: ^0.5.1
+  vite-tsconfig-paths: ^3.5.2
 
-  .:
-    specifiers:
-      '@types/node': ^18.11.3
-      '@types/react': ^18.0.21
-      '@types/react-dom': ^18.0.6
-      '@types/react-router-dom': ^5.3.3
-      '@typescript-eslint/eslint-plugin': ^5.40.1
-      '@typescript-eslint/parser': ^5.40.1
-      '@vitejs/plugin-react': ^2.1.0
-      classnames: ^2.3.2
-      eslint: ^8.26.0
-      eslint-config-prettier: ^8.5.0
-      eslint-plugin-prettier: ^4.2.1
-      eslint-plugin-react: ^7.31.10
-      eslint-plugin-react-hooks: ^4.6.0
-      meow: ^11.0.0
-      optionator: ^0.9.1
-      prettier: ^2.7.1
-      react: ^18.2.0
-      react-dom: ^18.2.0
-      react-router-dom: ^6.4.2
-      stylelint: ^14.14.0
-      stylelint-config-prettier: ^9.0.3
-      stylelint-config-recess-order: ^3.0.0
-      stylelint-config-standard: ^29.0.0
-      typescript: ^4.8.4
-      vite: ^3.1.8
-      vite-plugin-checker: ^0.5.1
-      vite-tsconfig-paths: ^3.5.2
-    dependencies:
-      classnames: 2.3.2
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      react-router-dom: 6.4.2_biqbaboplfbrettd7655fr4n2y
-    devDependencies:
-      '@types/node': 18.11.3
-      '@types/react': 18.0.21
-      '@types/react-dom': 18.0.6
-      '@types/react-router-dom': 5.3.3
-      '@typescript-eslint/eslint-plugin': 5.40.1_c4zyna56jjjrggqkyejnaxjxfu
-      '@typescript-eslint/parser': 5.40.1_wyqvi574yv7oiwfeinomdzmc3m
-      '@vitejs/plugin-react': 2.1.0_vite@3.1.8
-      eslint: 8.26.0
-      eslint-config-prettier: 8.5.0_eslint@8.26.0
-      eslint-plugin-prettier: 4.2.1_aniwkeyvlpmwkidetuytnokvcm
-      eslint-plugin-react: 7.31.10_eslint@8.26.0
-      eslint-plugin-react-hooks: 4.6.0_eslint@8.26.0
-      meow: 11.0.0
-      optionator: 0.9.1
-      prettier: 2.7.1
-      stylelint: 14.14.0
-      stylelint-config-prettier: 9.0.3_stylelint@14.14.0
-      stylelint-config-recess-order: 3.0.0_stylelint@14.14.0
-      stylelint-config-standard: 29.0.0_stylelint@14.14.0
-      typescript: 4.8.4
-      vite: 3.1.8
-      vite-plugin-checker: 0.5.1_hxciu4wc32bhtgnfnckkd3jfqy
-      vite-tsconfig-paths: 3.5.2_vite@3.1.8
+dependencies:
+  classnames: 2.3.2
+  react: 18.2.0
+  react-dom: 18.2.0_react@18.2.0
+  react-router-dom: 6.4.2_biqbaboplfbrettd7655fr4n2y
+
+devDependencies:
+  '@types/node': 18.11.3
+  '@types/react': 18.0.21
+  '@types/react-dom': 18.0.6
+  '@types/react-router-dom': 5.3.3
+  '@typescript-eslint/eslint-plugin': 5.40.1_c4zyna56jjjrggqkyejnaxjxfu
+  '@typescript-eslint/parser': 5.40.1_wyqvi574yv7oiwfeinomdzmc3m
+  '@vitejs/plugin-react': 2.1.0_vite@3.1.8
+  eslint: 8.26.0
+  eslint-config-prettier: 8.5.0_eslint@8.26.0
+  eslint-plugin-prettier: 4.2.1_aniwkeyvlpmwkidetuytnokvcm
+  eslint-plugin-react: 7.31.10_eslint@8.26.0
+  eslint-plugin-react-hooks: 4.6.0_eslint@8.26.0
+  meow: 11.0.0
+  optionator: 0.9.1
+  prettier: 2.7.1
+  stylelint: 14.14.0
+  stylelint-config-prettier: 9.0.3_stylelint@14.14.0
+  stylelint-config-recess-order: 3.0.0_stylelint@14.14.0
+  stylelint-config-standard: 29.0.0_stylelint@14.14.0
+  typescript: 4.8.4
+  vite: 3.1.8
+  vite-plugin-checker: 0.5.1_hxciu4wc32bhtgnfnckkd3jfqy
+  vite-tsconfig-paths: 3.5.2_vite@3.1.8
 
 packages:
 
