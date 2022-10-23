@@ -3,16 +3,16 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import './main.css';
-import Root from './routes/Root';
+import App from './pages/App';
 import ErrorPage from './error-page';
-import Home from './routes/Home';
-import SignIn from './routes/SignIn';
-import User from './routes/User';
+import Home from './pages/Home';
+import SignIn from './pages/SignIn';
+import User from './pages/User';
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <Root />,
+        element: <App />,
         errorElement: <ErrorPage />,
         children: [
             {

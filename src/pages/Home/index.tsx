@@ -1,8 +1,8 @@
 import styles from './Home.module.css';
 
-import IconChat from '../../assets/icon-chat.png';
-import IconMoney from '../../assets/icon-money.png';
-import IconSecurity from '../../assets/icon-security.png';
+import IconChat from '../../assets/images/icon-chat.png';
+import IconMoney from '../../assets/images/icon-money.png';
+import IconSecurity from '../../assets/images/icon-security.png';
 import FeatureItem from './components/FeatureItem';
 
 const features = [

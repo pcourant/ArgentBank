@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styles from './Header.module.css';
 
-import Logo from '../../../../assets/argentBankLogo.png';
+import Logo from '../../../../assets/images/argentBankLogo.png';
 
 const Header = () => {
     return (
