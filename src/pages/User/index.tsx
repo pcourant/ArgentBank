@@ -1,13 +1,8 @@
 import { ProfileHeader } from '@features/User';
 import { Account } from '@features/User';
-import { useUsersQuery } from '../../services/userAPI';
 import { useUserContext } from '../../context';
 
 const User = () => {
-    // const { data, error, isLoading, isSuccess } = useUsersQuery('');
-    const { data } = useUsersQuery('');
-    console.log(data);
-
     const { user } = useUserContext();
     console.log(user);
 
