@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import './main.css';
 import App from './pages/App';
-import ErrorPage from './error-page';
+import ErrorPage from './pages/ErrorPage';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import User from './pages/User';
@@ -36,11 +37,14 @@ const router = createBrowserRouter([
 
 // An alternative and much better approach is to use a type guard.
 const root = document.getElementById('root');
+const queryClient = new QueryClient();
 
 if (root != null) {
     ReactDOM.createRoot(root).render(
         <React.StrictMode>
-            <RouterProvider router={router} />
+            <QueryClientProvider client={queryClient}>
+                <RouterProvider router={router} />
+            </QueryClientProvider>
         </React.StrictMode>,
     );
 }

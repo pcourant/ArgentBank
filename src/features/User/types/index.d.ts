@@ -1,7 +1,6 @@
 interface User {
     firstName?: string;
     lastName?: string;
-    token: string | null;
 }
 
 interface UserContextInterface {

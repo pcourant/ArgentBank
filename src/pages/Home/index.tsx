@@ -1,6 +1,6 @@
 import styles from './Home.module.css';
 
-import { useUserContext } from '../../context';
+import { useUserContext } from '../../utils/context';
 
 import IconChat from '../../assets/images/icon-chat.png';
 import IconMoney from '../../assets/images/icon-money.png';

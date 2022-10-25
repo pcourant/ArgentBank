@@ -1,10 +1,14 @@
 import { ProfileHeader } from '@features/User';
 import { Account } from '@features/User';
-import { useUserContext } from '../../context';
+import { useProfile } from '@features/User/services/api';
+import { useUserContext } from '../../utils/context';
 
 const User = () => {
-    const { user } = useUserContext();
-    console.log(user);
+    const userContext = useUserContext();
+    console.log('USER PAGE', userContext.user);
+
+    const { status, data, error, isFetching } = useProfile(userContext);
+    console.log('USER PAGE', userContext.user);
 
     return (
         <main className="main bg-dark">

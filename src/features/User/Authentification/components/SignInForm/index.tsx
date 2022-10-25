@@ -1,63 +1,61 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import cx from 'classnames';
 
 import styles from './SignInForm.module.css';
 import Form from './Form';
 import FormField from './Form/FormField';
 // import PrimaryButton from '../../../../../components/PrimaryButton';
-import { useUserContext } from '../../../../../context';
+import { useUserContext } from '../../../../../utils/context';
+import { useLogin, submitLogin } from '@features/User/services/api';
 
-interface CredentialsInterface {
-    email: string;
-    password: string;
-}
+// interface DataInterface {
+//     body: TokenInterface;
+//     message: string;
+//     status: number;
+// }
 
-interface DataInterface {
-    body: TokenInterface;
-    message: string;
-    status: number;
-}
+// interface TokenInterface {
+//     token: string;
+// }
 
-interface TokenInterface {
-    token: string;
-}
+// async function loginUser(
+//     credentials: CredentialsInterface,
+// ): Promise<DataInterface> {
+//     // console.log('credentials', JSON.stringify(credentials));
+//     return fetch('http://localhost:3001/api/v1/user/login', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(credentials),
+//     }).then((data) => data.json() as Promise<DataInterface>);
+// }
 
-async function loginUser(
-    credentials: CredentialsInterface,
-): Promise<DataInterface> {
-    // console.log('credentials', JSON.stringify(credentials));
-    return fetch('http://localhost:3001/api/v1/user/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(credentials),
-    }).then((data) => data.json() as Promise<DataInterface>);
-}
-
-const SignInForm = () => {
-    const { user, setUser } = useUserContext();
+const SignInForm = ({ to }) => {
+    const navigate = useNavigate();
+    const userContext = useUserContext();
+    const loginMutation = useLogin();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = async (e: React.SyntheticEvent) => {
-        console.log(email);
-        console.log(password);
-
+    const handleSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        const { body }: DataInterface = await loginUser({
-            email,
-            password,
-        });
-        setUser({ ...user, token: body.token });
+
+        submitLogin(
+            loginMutation,
+            { email, password },
+            userContext,
+            navigate,
+            to,
+        );
     };
 
     return (
         <section className={styles.signInContent}>
             <i className={cx('fa', 'fa-user-circle', styles.signInIcon)}></i>
             <h1>Sign In</h1>
-            {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
             <Form onSubmit={handleSubmit}>
                 <FormField
                     type="email"

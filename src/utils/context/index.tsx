@@ -31,7 +31,7 @@ export const UserContextProvider = ({
 }: {
     children?: React.ReactNode;
 }) => {
-    const [user, setUserState] = useState<User>({ token: null });
+    const [user, setUserState] = useState<User>({});
 
     const setUser = (user: User) => {
         setUserState(user);
