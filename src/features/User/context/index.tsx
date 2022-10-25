@@ -1,21 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
 
-// interface UserContextInterface {
-//     user: User;
-//     setUser: (user: User) => void;
-// }
-
-// const user: User = {
-//     token: null,
-// };
-// const userContext: UserContextInterface = {
-//     user: { token: null },
-//     setUser: (user) => {
-//         user;
-//     },
-// };
-
-// export const UserContext = createContext<UserContextInterface>(userContext);
 const UserContext = createContext<UserContextInterface>(
     {} as UserContextInterface,
 );

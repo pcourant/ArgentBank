@@ -2,7 +2,7 @@ import { ElementType, HTMLAttributes, FunctionComponent } from 'react';
 import cx from 'classnames';
 
 import styles from './Account.module.css';
-import PrimaryButton from 'src/components/PrimaryButton';
+import PrimaryButton from '@components/PrimaryButton';
 
 interface AccountProps extends HTMLAttributes<HTMLOrSVGElement> {
     as?: ElementType;

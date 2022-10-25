@@ -1,11 +1,10 @@
 import styles from './Home.module.css';
 
-import { useUserContext } from '../../utils/context';
-
-import IconChat from '../../assets/images/icon-chat.png';
-import IconMoney from '../../assets/images/icon-money.png';
-import IconSecurity from '../../assets/images/icon-security.png';
 import FeatureItem from './components/FeatureItem';
+
+import IconChat from '@assets/images/icon-chat.png';
+import IconMoney from '@assets/images/icon-money.png';
+import IconSecurity from '@assets/images/icon-security.png';
 
 const features = [
     {
@@ -29,9 +28,6 @@ const features = [
 ];
 
 const Home = () => {
-    const { user } = useUserContext();
-    console.log(user);
-
     return (
         <main>
             <div className={styles.hero}>

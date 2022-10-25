@@ -3,12 +3,13 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
+import App from '@pages/App';
+import ErrorPage from '@pages/ErrorPage';
+import Home from '@pages/Home';
+import SignIn from '@pages/SignIn';
+import User from '@pages/User';
+
 import './main.css';
-import App from './pages/App';
-import ErrorPage from './pages/ErrorPage';
-import Home from './pages/Home';
-import SignIn from './pages/SignIn';
-import User from './pages/User';
 
 const router = createBrowserRouter([
     {

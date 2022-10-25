@@ -1,7 +1,5 @@
-import { ProfileHeader } from '@features/User';
-import { Account } from '@features/User';
-import { useProfile } from '@features/User/services/api';
-import { useUserContext } from '../../utils/context';
+import { ProfileHeader, Account, useProfile } from '@features/User/Profile';
+import { useUserContext } from '@features/User';
 
 const User = () => {
     const userContext = useUserContext();

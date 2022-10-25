@@ -1,5 +1,5 @@
 import styles from './ProfileHeader.module.css';
-import PrimaryButton from 'src/components/PrimaryButton';
+import PrimaryButton from '@components/PrimaryButton';
 
 const Header = () => {
     return (

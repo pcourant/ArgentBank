@@ -5,36 +5,15 @@ import cx from 'classnames';
 import styles from './SignInForm.module.css';
 import Form from './Form';
 import FormField from './Form/FormField';
-// import PrimaryButton from '../../../../../components/PrimaryButton';
-import { useUserContext } from '../../../../../utils/context';
-import { useLogin, submitLogin } from '@features/User/services/api';
 
-// interface DataInterface {
-//     body: TokenInterface;
-//     message: string;
-//     status: number;
-// }
+import PrimaryButton from '@components/PrimaryButton';
+import { useLogin, submitLogin } from '@features/User/Authentification/';
 
-// interface TokenInterface {
-//     token: string;
-// }
-
-// async function loginUser(
-//     credentials: CredentialsInterface,
-// ): Promise<DataInterface> {
-//     // console.log('credentials', JSON.stringify(credentials));
-//     return fetch('http://localhost:3001/api/v1/user/login', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(credentials),
-//     }).then((data) => data.json() as Promise<DataInterface>);
-// }
-
-const SignInForm = ({ to }) => {
+type SignInProps = {
+    to?: string;
+};
+const SignInForm = ({ to }: SignInProps) => {
     const navigate = useNavigate();
-    const userContext = useUserContext();
     const loginMutation = useLogin();
 
     const [email, setEmail] = useState('');
@@ -43,13 +22,7 @@ const SignInForm = ({ to }) => {
     const handleSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();
 
-        submitLogin(
-            loginMutation,
-            { email, password },
-            userContext,
-            navigate,
-            to,
-        );
+        submitLogin(loginMutation, { email, password }, navigate, to);
     };
 
     return (
@@ -78,15 +51,12 @@ const SignInForm = ({ to }) => {
                 <FormField type="checkbox" name="remember-me">
                     Remember me
                 </FormField>
-                {/* <PrimaryButton className={styles.signInButton}>
-                    Sign In
-                </PrimaryButton> */}
-                <button
-                    type="submit"
-                    className={cx(styles.default, styles.signInButton)}
+                <PrimaryButton
+                    className={styles.signInButton}
+                    htmlType="submit"
                 >
                     Sign In
-                </button>
+                </PrimaryButton>
             </Form>
         </section>
     );

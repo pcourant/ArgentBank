@@ -6,7 +6,7 @@ type ErrorResponse = {
 };
 
 const ErrorPage = () => {
-    // Type Assertions because @types/react-router-dom is not updated to v6 ?
+    // Type Assertions because @types/react-router-dom is not updated to v6.4 ?
     const error = useRouteError() as ErrorResponse;
     console.error(error);
 
