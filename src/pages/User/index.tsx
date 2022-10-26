@@ -1,5 +1,5 @@
 import { ProfileHeader, Account, useProfile } from '@features/User/Profile';
-import { useUserContext } from '@features/User';
+import { useUserContext } from '@utils/context';
 
 const User = () => {
     const userContext = useUserContext();

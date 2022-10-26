@@ -1,14 +1,14 @@
 import { useQuery } from 'react-query';
-import client from 'src/utils/config/axios';
+import client from '@utils/config/axios';
 
 import { ENDPOINTS } from './endpoints';
 
-interface ProfileInterface {
+interface ProfileResponse {
     status: number;
     message: string;
-    body: ProfileBodyInterface;
+    body: ProfileResponseBody;
 }
-interface ProfileBodyInterface {
+interface ProfileResponseBody {
     createdAt: string;
     email: string;
     firstName: string;
@@ -16,11 +16,11 @@ interface ProfileBodyInterface {
     lastName: string;
     updatedAt: string;
 }
-const useProfile = (userContext: UserContextInterface) => {
+const useProfile = (userContext: UserContext) => {
     return useQuery(
         ['posts'],
         async () => {
-            const { data } = await client.post<ProfileInterface>(
+            const { data } = await client.post<ProfileResponse>(
                 ENDPOINTS.profile,
             );
             return data;

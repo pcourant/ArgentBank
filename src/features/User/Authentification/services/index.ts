@@ -1,27 +1,24 @@
 import { useMutation } from 'react-query';
 import { NavigateFunction } from 'react-router-dom';
-import client from 'src/utils/config/axios';
+import client from '@utils/config/axios';
 
 import { ENDPOINTS } from './endpoints';
 
-interface LoginInterface {
+interface LoginResponse {
     status: number;
     message: string;
-    body: TokenInterface;
+    body: Token;
 }
-interface TokenInterface {
+interface Token {
     token: string;
 }
-interface CredentialsInterface {
+interface Credentials {
     email: string;
     password: string;
 }
 
-const login = ({ email, password }: CredentialsInterface) => {
-    return client.post<LoginInterface>(ENDPOINTS.login, {
-        email,
-        password,
-    });
+const login = (credentials: Credentials) => {
+    return client.post<LoginResponse>(ENDPOINTS.login, credentials);
 };
 
 export const useLogin = () => useMutation(login);
@@ -30,7 +27,7 @@ type LoginMutationType = ReturnType<typeof useLogin>;
 
 export const submitLogin = (
     loginMutation: LoginMutationType,
-    credentials: CredentialsInterface,
+    credentials: Credentials,
     navigate?: NavigateFunction,
     to?: string,
 ) => {

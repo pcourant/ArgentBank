@@ -3,7 +3,7 @@ interface User {
     lastName?: string;
 }
 
-interface UserContextInterface {
+interface UserContext {
     user: User;
     setUser: (user: User) => void;
 }

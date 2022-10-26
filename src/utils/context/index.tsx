@@ -1,8 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 
-const UserContext = createContext<UserContextInterface>(
-    {} as UserContextInterface,
-);
+const UserContext = createContext<UserContext>({} as UserContext);
 
 export const useUserContext = () => {
     const userContext = useContext(UserContext);
