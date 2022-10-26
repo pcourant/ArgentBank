@@ -1,16 +1,15 @@
-import { ElementType, HTMLAttributes, FunctionComponent } from 'react';
+import { FunctionComponent, ComponentType, PropsWithChildren } from 'react';
 import cx from 'classnames';
 
 import styles from './Account.module.css';
 import PrimaryButton from '@components/PrimaryButton';
 
-interface AccountProps extends HTMLAttributes<HTMLOrSVGElement> {
-    as?: ElementType;
+type AccountProps = PropsWithChildren<{
+    as?: keyof JSX.IntrinsicElements | ComponentType<PropsWithChildren>;
     title?: string;
     description?: string;
     amount?: string;
-    children?: React.ReactNode;
-}
+}>;
 
 const Account: FunctionComponent<AccountProps> = ({
     as: Tag = 'div',

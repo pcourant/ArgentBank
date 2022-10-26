@@ -1,12 +1,17 @@
-import { FunctionComponent, PropsWithChildren } from 'react';
+import React, {
+    ButtonHTMLAttributes,
+    MouseEventHandler,
+    FunctionComponent,
+    PropsWithChildren,
+} from 'react';
 import cx from 'classnames';
 
 import styles from './PrimaryButton.module.css';
 
 type PrimaryButtonProps = PropsWithChildren<{
     className?: string;
-    htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
-    onClick?: React.MouseEventHandler<HTMLButtonElement>;
+    htmlType?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
+    onClick?: MouseEventHandler<HTMLButtonElement>;
 }>;
 
 const PrimaryButton: FunctionComponent<PrimaryButtonProps> = ({

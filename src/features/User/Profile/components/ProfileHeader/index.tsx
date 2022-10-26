@@ -1,4 +1,4 @@
-import { FunctionComponent, SyntheticEvent, useState } from 'react';
+import { FunctionComponent, useState, ChangeEvent, FormEvent } from 'react';
 import { useProfileUpdate, submitProfileUpdate } from '@features/User/Profile';
 import { useUserContext } from '@utils/context';
 
@@ -19,7 +19,7 @@ const ProfileHeader: FunctionComponent<ProfileHeaderProps> = ({
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState({ firstName: '', lastName: '' });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const inputName = e.currentTarget.name;
         const inputValue = e.currentTarget.value;
         setName((name) => ({
@@ -32,13 +32,11 @@ const ProfileHeader: FunctionComponent<ProfileHeaderProps> = ({
         setIsEditing((isEditing) => !isEditing);
     };
 
-    const handleSubmit = (e: SyntheticEvent) => {
+    const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
 
-        console.log('ProfileHeader: handleSubmit IN');
-
         submitProfileUpdate(profileMutation, name, (data, name) => {
-            console.log('ProfileHeader: submitProfileUpdate', data);
+            console.log('API: submitProfileUpdate', data);
             userContext.setUser({
                 ...userContext.user,
                 firstName: name.firstName,

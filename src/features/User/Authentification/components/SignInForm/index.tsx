@@ -10,9 +10,9 @@ import PrimaryButton from '@components/PrimaryButton';
 import { useLogin, submitLogin } from '@features/User/Authentification/';
 
 type SignInProps = {
-    to?: string;
+    toPath?: string;
 };
-const SignInForm = ({ to }: SignInProps) => {
+const SignInForm = ({ toPath }: SignInProps) => {
     const navigate = useNavigate();
     const loginMutation = useLogin();
 
@@ -22,7 +22,9 @@ const SignInForm = ({ to }: SignInProps) => {
     const handleSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();
 
-        submitLogin(loginMutation, { email, password }, navigate, to);
+        submitLogin(loginMutation, { email, password }, () => {
+            if (toPath) navigate(toPath);
+        });
     };
 
     return (

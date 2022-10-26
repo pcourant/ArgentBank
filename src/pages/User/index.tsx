@@ -5,7 +5,7 @@ const User = () => {
     const userContext = useUserContext();
     // const { status, data, error, isFetching } = useProfile(userContext);
     useProfile((data) => {
-        console.log('useProfile', data);
+        console.log('API: useProfile', data);
         userContext.setUser({
             ...userContext.user,
             firstName: data.body.firstName,
