@@ -18,7 +18,7 @@ interface ProfileResponseBody {
 }
 const useProfile = (userContext: UserContext) => {
     return useQuery(
-        ['posts'],
+        ['profile'],
         async () => {
             const { data } = await client.post<ProfileResponse>(
                 ENDPOINTS.profile,
@@ -39,4 +39,44 @@ const useProfile = (userContext: UserContext) => {
     );
 };
 
-export default useProfile;
+interface ProfileUpdatePayload {
+    firstName: string;
+    lastName: string;
+}
+interface ProfileUpdateResponse {
+    status: number;
+    message: string;
+    body: ProfileUpdateResponseBody;
+}
+interface ProfileUpdateResponseBody {
+    id: string;
+    email: string;
+}
+const useProfileUpdate = (
+    profileUpdatePayload: ProfileUpdatePayload,
+    userContext: UserContext,
+) => {
+    return useQuery(
+        ['profileUpdate'],
+        async () => {
+            const { data } = await client.put<ProfileUpdateResponse>(
+                ENDPOINTS.profile,
+                profileUpdatePayload,
+            );
+            return data;
+        },
+        {
+            onSuccess: (data) => {
+                console.log('useProfileUpdate', data);
+                userContext.setUser({
+                    ...userContext.user,
+                    firstName: profileUpdatePayload.firstName,
+                    lastName: profileUpdatePayload.lastName,
+                });
+                console.log('useProfileUpdate', userContext.user);
+            },
+        },
+    );
+};
+
+export { useProfile, useProfileUpdate };
