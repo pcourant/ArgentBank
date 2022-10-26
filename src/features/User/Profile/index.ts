@@ -1,5 +1,11 @@
 import ProfileHeader from './components/ProfileHeader';
 import Account from './components/Account';
-import { useProfile } from './services';
+import { useProfile, useProfileUpdate, submitProfileUpdate } from './services';
 
-export { ProfileHeader, Account, useProfile };
+export {
+    ProfileHeader,
+    Account,
+    useProfile,
+    useProfileUpdate,
+    submitProfileUpdate,
+};

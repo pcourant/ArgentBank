@@ -3,14 +3,22 @@ import { useUserContext } from '@utils/context';
 
 const User = () => {
     const userContext = useUserContext();
-    console.log('USER PAGE', userContext.user);
-
-    const { status, data, error, isFetching } = useProfile(userContext);
-    console.log('USER PAGE', userContext.user);
+    // const { status, data, error, isFetching } = useProfile(userContext);
+    useProfile((data) => {
+        console.log('useProfile', data);
+        userContext.setUser({
+            ...userContext.user,
+            firstName: data.body.firstName,
+            lastName: data.body.lastName,
+        });
+    });
 
     return (
         <main className="main bg-dark">
-            <ProfileHeader />
+            <ProfileHeader
+                firstName={userContext.user.firstName}
+                lastName={userContext.user.lastName}
+            />
             <h2 className="sr-only">Accounts</h2>
             <Account
                 as="section"

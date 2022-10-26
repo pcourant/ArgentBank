@@ -1,19 +1,103 @@
+import { FunctionComponent, SyntheticEvent, useState } from 'react';
+import { useProfileUpdate, submitProfileUpdate } from '@features/User/Profile';
+import { useUserContext } from '@utils/context';
+
 import styles from './ProfileHeader.module.css';
 import PrimaryButton from '@components/PrimaryButton';
 
-const Header = () => {
+type ProfileHeaderProps = {
+    firstName?: string;
+    lastName?: string;
+};
+const ProfileHeader: FunctionComponent<ProfileHeaderProps> = ({
+    firstName = '',
+    lastName = '',
+}) => {
+    const userContext = useUserContext();
+    const profileMutation = useProfileUpdate();
+
+    const [isEditing, setIsEditing] = useState(false);
+    const [name, setName] = useState({ firstName: '', lastName: '' });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const inputName = e.currentTarget.name;
+        const inputValue = e.currentTarget.value;
+        setName((name) => ({
+            ...name,
+            [inputName]: inputValue,
+        }));
+    };
+
+    const handleClick = () => {
+        setIsEditing((isEditing) => !isEditing);
+    };
+
+    const handleSubmit = (e: SyntheticEvent) => {
+        e.preventDefault();
+
+        console.log('ProfileHeader: handleSubmit IN');
+
+        submitProfileUpdate(profileMutation, name, (data, name) => {
+            console.log('ProfileHeader: submitProfileUpdate', data);
+            userContext.setUser({
+                ...userContext.user,
+                firstName: name.firstName,
+                lastName: name.lastName,
+            });
+            setIsEditing((isEditing) => !isEditing);
+        });
+    };
+
     return (
         <div className={styles.header}>
             <h1>
                 Welcome back
                 <br />
-                Tony Jarvis!
+                {isEditing ? null : `${firstName} ${lastName}!`}
             </h1>
-            <PrimaryButton className={styles.editButton}>
-                Edit Name
-            </PrimaryButton>
+            {isEditing ? (
+                <>
+                    <form onSubmit={handleSubmit}>
+                        <input
+                            type="text"
+                            id="firstName"
+                            name="firstName"
+                            required
+                            placeholder={firstName}
+                            onChange={handleChange}
+                        ></input>
+                        <input
+                            type="text"
+                            id="lastName"
+                            name="lastName"
+                            required
+                            placeholder={lastName}
+                            onChange={handleChange}
+                        ></input>
+                        <PrimaryButton
+                            htmlType="submit"
+                            className={styles.editButton}
+                        >
+                            Save
+                        </PrimaryButton>
+                        <PrimaryButton
+                            className={styles.editButton}
+                            onClick={handleClick}
+                        >
+                            Cancel
+                        </PrimaryButton>
+                    </form>
+                </>
+            ) : (
+                <PrimaryButton
+                    className={styles.editButton}
+                    onClick={handleClick}
+                >
+                    Edit Name
+                </PrimaryButton>
+            )}
         </div>
     );
 };
 
-export default Header;
+export default ProfileHeader;

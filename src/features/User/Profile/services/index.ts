@@ -1,5 +1,6 @@
-import { useQuery } from 'react-query';
+import { useQuery, useMutation } from 'react-query';
 import client from '@utils/config/axios';
+import { AxiosResponse } from 'axios';
 
 import { ENDPOINTS } from './endpoints';
 
@@ -16,7 +17,9 @@ interface ProfileResponseBody {
     lastName: string;
     updatedAt: string;
 }
-const useProfile = (userContext: UserContext) => {
+
+type ProfileOnSuccess = (data: ProfileResponse) => void;
+const useProfile = (onSuccess: ProfileOnSuccess) => {
     return useQuery(
         ['profile'],
         async () => {
@@ -26,23 +29,21 @@ const useProfile = (userContext: UserContext) => {
             return data;
         },
         {
-            onSuccess: (data) => {
-                console.log('useProfile', data);
-                userContext.setUser({
-                    ...userContext.user,
-                    firstName: data.body.firstName,
-                    lastName: data.body.lastName,
-                });
-                console.log('useProfile', userContext.user);
-            },
+            onSuccess: onSuccess,
         },
     );
 };
 
-interface ProfileUpdatePayload {
+interface NameInterface {
     firstName: string;
     lastName: string;
 }
+const updateProfile = (name: NameInterface) => {
+    return client.put<ProfileUpdateResponse>(ENDPOINTS.profile, name);
+};
+
+const useProfileUpdate = () => useMutation(updateProfile);
+
 interface ProfileUpdateResponse {
     status: number;
     message: string;
@@ -52,31 +53,18 @@ interface ProfileUpdateResponseBody {
     id: string;
     email: string;
 }
-const useProfileUpdate = (
-    profileUpdatePayload: ProfileUpdatePayload,
-    userContext: UserContext,
+type ProfileMutationType = ReturnType<typeof useProfileUpdate>;
+type ProfileUpdateOnSuccess = (
+    data: AxiosResponse<ProfileUpdateResponse>,
+    variables: NameInterface,
+) => void | Promise<unknown>;
+
+const submitProfileUpdate = (
+    profileMutation: ProfileMutationType,
+    name: NameInterface,
+    onSuccess: ProfileUpdateOnSuccess,
 ) => {
-    return useQuery(
-        ['profileUpdate'],
-        async () => {
-            const { data } = await client.put<ProfileUpdateResponse>(
-                ENDPOINTS.profile,
-                profileUpdatePayload,
-            );
-            return data;
-        },
-        {
-            onSuccess: (data) => {
-                console.log('useProfileUpdate', data);
-                userContext.setUser({
-                    ...userContext.user,
-                    firstName: profileUpdatePayload.firstName,
-                    lastName: profileUpdatePayload.lastName,
-                });
-                console.log('useProfileUpdate', userContext.user);
-            },
-        },
-    );
+    profileMutation.mutate(name, { onSuccess: onSuccess });
 };
 
-export { useProfile, useProfileUpdate };
+export { useProfile, useProfileUpdate, submitProfileUpdate };
