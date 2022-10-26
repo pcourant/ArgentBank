@@ -1,8 +1,35 @@
-.header {
-    margin-bottom: 2rem;
+.container {
+    display: block;
+    margin: 0 auto 2rem;
     color: #fff;
+    text-align: center;
+}
+
+.input {
+    box-sizing: border-box;
+    padding: 8px;
+    margin-right: 8px;
+    margin-left: 8px;
+}
+
+.input::placeholder {
+    opacity: 0.6;
 }
 
 .editButton {
-    padding: 10px;
+    width: 100px;
+    margin-right: 8px;
+    margin-left: 8px;
+}
+
+.buttonsContainer {
+    margin-top: 10px;
+}
+
+@media (max-width: 512px) {
+    .input {
+        width: 80%;
+        margin: 0;
+        margin-top: 1px;
+    }
 }

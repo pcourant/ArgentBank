@@ -23,7 +23,7 @@ const Header = () => {
                 />
                 <h1 className="sr-only">Argent Bank</h1>
             </Link>
-            <div>
+            <div className={styles.mainNavItemContainer}>
                 <Link
                     className={styles.mainNavItem}
                     to={user.firstName ? 'user' : 'sign-in'}

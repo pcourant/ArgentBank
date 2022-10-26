@@ -3,7 +3,7 @@ import { useProfileUpdate, submitProfileUpdate } from '@features/User/Profile';
 import { useUserContext } from '@utils/context';
 
 import styles from './ProfileHeader.module.css';
-import PrimaryButton from '@components/PrimaryButton';
+import Button from '@components/Button';
 
 type ProfileHeaderProps = {
     firstName?: string;
@@ -47,52 +47,55 @@ const ProfileHeader: FunctionComponent<ProfileHeaderProps> = ({
     };
 
     return (
-        <div className={styles.header}>
+        <div className={styles.container}>
             <h1>
                 Welcome back
                 <br />
                 {isEditing ? null : `${firstName} ${lastName}!`}
             </h1>
             {isEditing ? (
-                <>
-                    <form onSubmit={handleSubmit}>
-                        <input
-                            type="text"
-                            id="firstName"
-                            name="firstName"
-                            required
-                            placeholder={firstName}
-                            onChange={handleChange}
-                        ></input>
-                        <input
-                            type="text"
-                            id="lastName"
-                            name="lastName"
-                            required
-                            placeholder={lastName}
-                            onChange={handleChange}
-                        ></input>
-                        <PrimaryButton
-                            htmlType="submit"
+                <form onSubmit={handleSubmit}>
+                    <input
+                        className={styles.input}
+                        type="text"
+                        id="firstName"
+                        name="firstName"
+                        required
+                        placeholder={firstName}
+                        onChange={handleChange}
+                    ></input>
+                    <input
+                        className={styles.input}
+                        type="text"
+                        id="lastName"
+                        name="lastName"
+                        required
+                        placeholder={lastName}
+                        onChange={handleChange}
+                    ></input>
+                    <div className={styles.buttonsContainer}>
+                        <Button
+                            size="small"
+                            type="secondary"
                             className={styles.editButton}
+                            htmlType="submit"
                         >
                             Save
-                        </PrimaryButton>
-                        <PrimaryButton
+                        </Button>
+                        <Button
+                            size="small"
+                            type="secondary"
                             className={styles.editButton}
                             onClick={handleClick}
                         >
                             Cancel
-                        </PrimaryButton>
-                    </form>
-                </>
+                        </Button>
+                    </div>
+                </form>
             ) : (
-                <PrimaryButton
-                    className={styles.editButton}
-                    onClick={handleClick}
-                >
+                <Button size="small" onClick={handleClick}>
                     Edit Name
-                </PrimaryButton>
+                </Button>
             )}
         </div>
     );

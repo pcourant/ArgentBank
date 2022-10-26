@@ -1,0 +1,29 @@
+.default {
+    font-weight: bold;
+}
+
+.primary {
+    color: #fff;
+    background-color: #00bc77;
+    border-color: #00bc77;
+}
+
+.secondary {
+    color: #00bc77;
+    background-color: #fff;
+    border-color: #00bc77;
+    border-style: solid;
+    border-width: 1.5px;
+}
+
+.big {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin-top: 1rem;
+    font-size: 1.1rem;
+}
+
+.small {
+    padding: 10px;
+}

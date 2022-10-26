@@ -14,6 +14,7 @@ body {
 #root {
     display: flex;
     flex-direction: column;
+    justify-items: center;
     min-height: 100vh;
 }
 

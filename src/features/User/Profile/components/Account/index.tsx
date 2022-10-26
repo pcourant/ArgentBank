@@ -2,7 +2,7 @@ import { FunctionComponent, ComponentType, PropsWithChildren } from 'react';
 import cx from 'classnames';
 
 import styles from './Account.module.css';
-import PrimaryButton from '@components/PrimaryButton';
+import Button from '@components/Button';
 
 type AccountProps = PropsWithChildren<{
     as?: keyof JSX.IntrinsicElements | ComponentType<PropsWithChildren>;
@@ -25,9 +25,9 @@ const Account: FunctionComponent<AccountProps> = ({
                 <p className={styles.accountAmountDescription}>{description}</p>
             </div>
             <div className={cx(styles.accountContentWrapper, styles.cta)}>
-                <PrimaryButton className={styles.transactionButton}>
+                <Button className={styles.transactionButton}>
                     View transactions
-                </PrimaryButton>
+                </Button>
             </div>
         </Tag>
     );

@@ -6,15 +6,19 @@ import React, {
 } from 'react';
 import cx from 'classnames';
 
-import styles from './PrimaryButton.module.css';
+import styles from './Button.module.css';
 
 type PrimaryButtonProps = PropsWithChildren<{
+    type?: 'primary' | 'secondary';
+    size?: 'big' | 'small';
     className?: string;
     htmlType?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
     onClick?: MouseEventHandler<HTMLButtonElement>;
 }>;
 
-const PrimaryButton: FunctionComponent<PrimaryButtonProps> = ({
+const Button: FunctionComponent<PrimaryButtonProps> = ({
+    type = 'primary',
+    size = 'big',
     className,
     htmlType,
     onClick,
@@ -22,7 +26,12 @@ const PrimaryButton: FunctionComponent<PrimaryButtonProps> = ({
 }) => {
     return (
         <button
-            className={cx(styles.default, className)}
+            className={cx(
+                styles.default,
+                size === 'big' ? styles.big : styles.small,
+                type === 'primary' ? styles.primary : styles.secondary,
+                className,
+            )}
             type={htmlType}
             onClick={onClick}
         >
@@ -31,4 +40,4 @@ const PrimaryButton: FunctionComponent<PrimaryButtonProps> = ({
     );
 };
 
-export default PrimaryButton;
+export default Button;

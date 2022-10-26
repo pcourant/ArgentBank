@@ -35,13 +35,6 @@
     width: 100%;
 }
 
-.transactionButton {
-    display: block;
-    width: 100%;
-    margin-top: 1rem;
-    font-size: 1.1rem;
-}
-
 @media (min-width: 720px) {
     .account {
         flex-direction: row;

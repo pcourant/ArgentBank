@@ -24,6 +24,10 @@
     max-width: 100%;
 }
 
+.mainNavItemContainer {
+    display: flex;
+}
+
 .mainNavItem {
     margin-right: 0.5rem;
     text-decoration: none;

@@ -6,7 +6,7 @@ import styles from './SignInForm.module.css';
 import Form from './Form';
 import FormField from './Form/FormField';
 
-import PrimaryButton from '@components/PrimaryButton';
+import Button from '@components/Button';
 import { useLogin, submitLogin } from '@features/User/Authentification/';
 
 type SignInProps = {
@@ -53,12 +53,7 @@ const SignInForm = ({ toPath }: SignInProps) => {
                 <FormField type="checkbox" name="remember-me">
                     Remember me
                 </FormField>
-                <PrimaryButton
-                    className={styles.signInButton}
-                    htmlType="submit"
-                >
-                    Sign In
-                </PrimaryButton>
+                <Button htmlType="submit">Sign In</Button>
             </Form>
         </section>
     );
