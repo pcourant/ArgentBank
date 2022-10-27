@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Else, If, Then } from 'react-if';
+import { AxiosError } from 'axios';
 import cx from 'classnames';
 
 import styles from './SignInForm.module.css';
@@ -8,8 +10,6 @@ import FormField from './Form/FormField';
 
 import Button from '@components/Button';
 import { useLogin, submitLogin } from '@features/User/Authentification/';
-import { Else, If, Then } from 'react-if';
-import { AxiosError } from 'axios';
 
 type SignInProps = {
     toPath?: string;
@@ -19,7 +19,6 @@ const SignInForm = ({ toPath }: SignInProps) => {
     const loginMutation = useLogin();
 
     const { isLoading, isError } = loginMutation;
-
     const error = loginMutation.error as AxiosError<ErrorResponseData>; // Type assertion
 
     const [email, setEmail] = useState('');
