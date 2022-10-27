@@ -1,4 +1,5 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Else, If, Then } from 'react-if';
 import { AxiosError } from 'axios';
 import {
@@ -11,30 +12,36 @@ import { useUserContext } from '@utils/context';
 import styles from './ProfileHeader.module.css';
 import Button from '@components/Button';
 import { Skeleton } from '@mui/material';
+import { ErrorResponseData } from '@utils/types';
 
 const ProfileHeader = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState({ firstName: '', lastName: '' });
   const userContext = useUserContext();
-  console.log(userContext);
+  const navigate = useNavigate();
 
-  const profile = useProfile((data) => {
-    console.log('API: useProfile', data);
-    userContext.setUser({
-      ...userContext.user,
-      id: data.body.id,
-      email: data.body.email,
-      firstName: data.body.firstName,
-      lastName: data.body.lastName,
-    });
-  });
-  // console.log(profile);
-
-  const errorProfile = profile.error as AxiosError<ErrorResponseData>; // Type assertion
+  const profile = useProfile(
+    (data) => {
+      userContext.setUser({
+        ...userContext.user,
+        id: data.body.id,
+        email: data.body.email,
+        firstName: data.body.firstName,
+        lastName: data.body.lastName,
+      });
+    },
+    (err: AxiosError<ErrorResponseData>) => {
+      if (err.response?.data.status === 401) {
+        console.error(
+          'Redirection to SignIn Page because',
+          err.response?.data.message,
+        );
+        navigate('/sign-in');
+      }
+    },
+  );
 
   const profileMutation = useProfileUpdate();
-  const errorUpdateProfile =
-    profileMutation.error as AxiosError<ErrorResponseData>; // Type assertion
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const inputName = e.currentTarget.name;
@@ -52,17 +59,29 @@ const ProfileHeader = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    submitProfileUpdate(profileMutation, name, (data, name) => {
-      console.log('API: submitProfileUpdate', data);
-      userContext.setUser({
-        ...userContext.user,
-        firstName: name.firstName,
-        lastName: name.lastName,
-        email: data.data.body.email,
-        id: data.data.body.id,
-      });
-      setIsEditing((isEditing) => !isEditing);
-    });
+    submitProfileUpdate(
+      profileMutation,
+      name,
+      (data, name) => {
+        userContext.setUser({
+          ...userContext.user,
+          firstName: name.firstName,
+          lastName: name.lastName,
+          email: data.data.body.email,
+          id: data.data.body.id,
+        });
+        setIsEditing((isEditing) => !isEditing);
+      },
+      (err: AxiosError<ErrorResponseData>) => {
+        if (err.response?.data.status === 401) {
+          console.error(
+            'Redirection to SignIn Page because',
+            err.response?.data.message,
+          );
+          navigate('/sign-in');
+        }
+      },
+    );
   };
 
   return (
@@ -107,53 +126,53 @@ const ProfileHeader = () => {
       </If>
       <If condition={!isEditing}>
         <Then>
-          <If
-            condition={
-              (!userContext.user.firstName && !userContext.user.lastName) ||
-              profile.isLoading
-            }
-          >
+          <If condition={profile.isError}>
             <Then>
-              <Skeleton
-                variant="rectangular"
-                width={150}
-                height={32}
-                sx={{
-                  bgcolor: '#2c3e50',
-                  display: 'inline-block',
-                  marginRight: '16px',
-                }}
-              />
-              <Skeleton
-                variant="rectangular"
-                width={150}
-                height={32}
-                sx={{
-                  bgcolor: '#2c3e50',
-                  display: 'inline-block',
-                }}
-              />
+              <div className={styles.errorContainer}>
+                <If condition={profile.error?.response != null}>
+                  <Then>
+                    <p>{profile.error?.response?.data?.message}</p>
+                    <p>Status code : {profile.error?.response?.data?.status}</p>
+                  </Then>
+                  <Else>
+                    <p>{profile.error?.message}</p>
+                  </Else>
+                </If>
+              </div>
             </Then>
-            <Else>
-              <If condition={profile.isError}>
-                <Then>
-                  <div className={styles.errorContainer}>
-                    <If condition={errorProfile?.response != null}>
-                      <Then>
-                        <p>{errorProfile?.response?.data?.message}</p>
-                        <p>
-                          Status code : {errorProfile?.response?.data?.status}
-                        </p>
-                      </Then>
-                      <Else>
-                        <p>{errorProfile?.message}</p>
-                      </Else>
-                    </If>
-                  </div>
-                </Then>
-              </If>
-            </Else>
           </If>
+          <Else>
+            <If
+              condition={
+                (!profile.isError &&
+                  !userContext.user.firstName &&
+                  !userContext.user.lastName) ||
+                profile.isLoading
+              }
+            >
+              <Then>
+                <Skeleton
+                  variant="rectangular"
+                  width={150}
+                  height={32}
+                  sx={{
+                    bgcolor: '#2c3e50',
+                    display: 'inline-block',
+                    marginRight: '16px',
+                  }}
+                />
+                <Skeleton
+                  variant="rectangular"
+                  width={150}
+                  height={32}
+                  sx={{
+                    bgcolor: '#2c3e50',
+                    display: 'inline-block',
+                  }}
+                />
+              </Then>
+            </If>
+          </Else>
         </Then>
       </If>
 
@@ -203,8 +222,7 @@ const ProfileHeader = () => {
             <Else>
               <If
                 condition={
-                  (!userContext.user.firstName && !userContext.user.lastName) ||
-                  profileMutation.isLoading
+                  profileMutation.isLoading && !profileMutation.isError
                 }
               >
                 <Then>
@@ -232,16 +250,16 @@ const ProfileHeader = () => {
               <If condition={profileMutation.isError}>
                 <Then>
                   <div className={styles.errorContainer}>
-                    <If condition={errorUpdateProfile?.response != null}>
+                    <If condition={profileMutation.error?.response != null}>
                       <Then>
-                        <p>{errorUpdateProfile?.response?.data?.message}</p>
+                        <p>{profileMutation.error?.response?.data?.message}</p>
                         <p>
                           {'Status code : '}
-                          {errorUpdateProfile?.response?.data?.status}
+                          {profileMutation.error?.response?.data?.status}
                         </p>
                       </Then>
                       <Else>
-                        <p>{errorUpdateProfile?.message}</p>
+                        <p>{profileMutation.error?.message}</p>
                       </Else>
                     </If>
                   </div>

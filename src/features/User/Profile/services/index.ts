@@ -1,8 +1,9 @@
 import { useQuery, useMutation } from 'react-query';
 import client from '@utils/config/axios';
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
 import { ENDPOINTS } from './endpoints';
+import { ErrorResponseData, OnError } from '@utils/types';
 
 interface ProfileResponse {
   status: number;
@@ -19,15 +20,24 @@ interface ProfileResponseBody {
 }
 
 type ProfileOnSuccess = (data: ProfileResponse) => void;
-const useProfile = (onSuccess: ProfileOnSuccess) => {
-  return useQuery(
+// type OnError = (err: AxiosError<ErrorResponseData>) => void;
+
+const useProfile = (onSuccess: ProfileOnSuccess, onError: OnError) => {
+  return useQuery<unknown, AxiosError<ErrorResponseData>, ProfileResponse>(
     ['profile'],
     async () => {
       const { data } = await client.post<ProfileResponse>(ENDPOINTS.profile);
       return data;
     },
     {
-      onSuccess: onSuccess,
+      onSuccess: (data) => {
+        console.log('API: useProfile', data);
+        onSuccess(data);
+      },
+      onError: (err) => {
+        console.error('API: useProfile', err);
+        onError(err);
+      },
     },
   );
 };
@@ -40,7 +50,12 @@ const updateProfile = (name: NameInterface) => {
   return client.put<ProfileUpdateResponse>(ENDPOINTS.profile, name);
 };
 
-const useProfileUpdate = () => useMutation(updateProfile);
+const useProfileUpdate = () =>
+  useMutation<
+    AxiosResponse<ProfileUpdateResponse>,
+    AxiosError<ErrorResponseData>,
+    NameInterface
+  >(updateProfile);
 
 interface ProfileUpdateResponse {
   status: number;
@@ -61,8 +76,15 @@ const submitProfileUpdate = (
   profileMutation: ProfileMutationType,
   name: NameInterface,
   onSuccess: ProfileUpdateOnSuccess,
+  onError: OnError,
 ) => {
-  profileMutation.mutate(name, { onSuccess: onSuccess });
+  profileMutation.mutate(name, {
+    onSuccess: onSuccess,
+    onError: (err) => {
+      console.error('API: submitProfileUpdate', err);
+      onError(err);
+    },
+  });
 };
 
 export { useProfile, useProfileUpdate, submitProfileUpdate };

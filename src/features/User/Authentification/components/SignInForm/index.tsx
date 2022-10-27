@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Else, If, Then } from 'react-if';
-import { AxiosError } from 'axios';
 import cx from 'classnames';
 
 import styles from './SignInForm.module.css';
@@ -18,8 +17,7 @@ const SignInForm = ({ toPath }: SignInProps) => {
   const navigate = useNavigate();
   const loginMutation = useLogin();
 
-  const { isLoading, isError } = loginMutation;
-  const error = loginMutation.error as AxiosError<ErrorResponseData>; // Type assertion
+  const { isLoading, isError, error } = loginMutation;
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

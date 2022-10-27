@@ -2,6 +2,8 @@ import { useMutation } from 'react-query';
 import client from '@utils/config/axios';
 
 import { ENDPOINTS } from './endpoints';
+import { AxiosError, AxiosResponse } from 'axios';
+import { ErrorResponseData } from '@utils/types';
 
 interface LoginResponse {
   status: number;
@@ -20,7 +22,13 @@ const login = (credentials: Credentials) => {
   return client.post<LoginResponse>(ENDPOINTS.login, credentials);
 };
 
-export const useLogin = () => useMutation(login);
+export const useLogin = () =>
+  useMutation<
+    AxiosResponse<LoginResponse>,
+    AxiosError<ErrorResponseData>,
+    Credentials,
+    unknown
+  >(login);
 
 type LoginMutationType = ReturnType<typeof useLogin>;
 
@@ -36,6 +44,9 @@ export const submitLogin = (
         'Authorization'
       ] = `Bearer ${data.data.body.token}`;
       onSuccess();
+    },
+    onError: (err) => {
+      console.error('API: submitLogin', err);
     },
   });
 };

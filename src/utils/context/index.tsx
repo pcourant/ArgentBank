@@ -1,6 +1,7 @@
+import { User, UserContextInterface } from '@utils/types';
 import React, { createContext, useContext, useState } from 'react';
 
-const UserContext = createContext<UserContext>({
+const UserContext = createContext<UserContextInterface>({
   user: {
     id: undefined,
     email: undefined,
