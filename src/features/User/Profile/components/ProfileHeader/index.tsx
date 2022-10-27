@@ -16,6 +16,7 @@ const ProfileHeader = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState({ firstName: '', lastName: '' });
   const userContext = useUserContext();
+  console.log(userContext);
 
   const profile = useProfile((data) => {
     console.log('API: useProfile', data);
@@ -27,7 +28,7 @@ const ProfileHeader = () => {
       lastName: data.body.lastName,
     });
   });
-  console.log(profile);
+  // console.log(profile);
 
   const errorProfile = profile.error as AxiosError<ErrorResponseData>; // Type assertion
 
@@ -69,58 +70,92 @@ const ProfileHeader = () => {
       <h1>
         Welcome back
         <br />
-        <If condition={!isEditing}>
+        <If
+          condition={
+            !isEditing &&
+            !profile.isLoading &&
+            !profile.isError &&
+            !profileMutation.isLoading &&
+            !profileMutation.isError &&
+            userContext.user.firstName &&
+            userContext.user.lastName
+          }
+        >
           <Then>
-            <If condition={profile.isLoading}>
-              <Then>
-                <Skeleton
-                  variant="rectangular"
-                  width={150}
-                  height={32}
-                  sx={{
-                    bgcolor: '#2c3e50',
-                    display: 'inline-block',
-                    marginRight: '16px',
-                  }}
-                />
-                <Skeleton
-                  variant="rectangular"
-                  width={150}
-                  height={32}
-                  sx={{
-                    bgcolor: '#2c3e50',
-                    display: 'inline-block',
-                  }}
-                />
-              </Then>
-              <Else>
-                <If condition={profile.isError}>
-                  <Then>
-                    <div className={styles.errorContainer}>
-                      <If condition={errorProfile?.response != null}>
-                        <Then>
-                          <p>{errorProfile?.response?.data?.message}</p>
-                          <p>
-                            Status code : {errorProfile?.response?.data?.status}
-                          </p>
-                        </Then>
-                        <Else>
-                          <p>{errorProfile?.message}</p>
-                        </Else>
-                      </If>
-                    </div>
-                  </Then>
-                  <Else>
-                    <span>
-                      {userContext.user.firstName} {userContext.user.lastName}!
-                    </span>
-                  </Else>
-                </If>
-              </Else>
-            </If>
+            <span>
+              {userContext.user.firstName} {userContext.user.lastName}!
+            </span>
           </Then>
         </If>
       </h1>
+      <If
+        condition={
+          !isEditing &&
+          !profile.isLoading &&
+          !profile.isError &&
+          !profileMutation.isLoading &&
+          !profileMutation.isError &&
+          userContext.user.firstName &&
+          userContext.user.lastName
+        }
+      >
+        <Then>
+          <Button size="small" onClick={handleClick}>
+            Edit Name
+          </Button>
+        </Then>
+      </If>
+      <If condition={!isEditing}>
+        <Then>
+          <If
+            condition={
+              (!userContext.user.firstName && !userContext.user.lastName) ||
+              profile.isLoading
+            }
+          >
+            <Then>
+              <Skeleton
+                variant="rectangular"
+                width={150}
+                height={32}
+                sx={{
+                  bgcolor: '#2c3e50',
+                  display: 'inline-block',
+                  marginRight: '16px',
+                }}
+              />
+              <Skeleton
+                variant="rectangular"
+                width={150}
+                height={32}
+                sx={{
+                  bgcolor: '#2c3e50',
+                  display: 'inline-block',
+                }}
+              />
+            </Then>
+            <Else>
+              <If condition={profile.isError}>
+                <Then>
+                  <div className={styles.errorContainer}>
+                    <If condition={errorProfile?.response != null}>
+                      <Then>
+                        <p>{errorProfile?.response?.data?.message}</p>
+                        <p>
+                          Status code : {errorProfile?.response?.data?.status}
+                        </p>
+                      </Then>
+                      <Else>
+                        <p>{errorProfile?.message}</p>
+                      </Else>
+                    </If>
+                  </div>
+                </Then>
+              </If>
+            </Else>
+          </If>
+        </Then>
+      </If>
 
       <If condition={isEditing}>
         <Then>
@@ -166,12 +201,32 @@ const ProfileHeader = () => {
               </form>
             </Then>
             <Else>
-              <If condition={profileMutation.isLoading}>
+              <If
+                condition={
+                  (!userContext.user.firstName && !userContext.user.lastName) ||
+                  profileMutation.isLoading
+                }
+              >
                 <Then>
-                  <div className={styles.loaderContainer}>
-                    <div className={styles.loader}></div>
-                    <p>Updating profile name ...</p>
-                  </div>
+                  <Skeleton
+                    variant="rectangular"
+                    width={150}
+                    height={32}
+                    sx={{
+                      bgcolor: '#2c3e50',
+                      display: 'inline-block',
+                      marginRight: '16px',
+                    }}
+                  />
+                  <Skeleton
+                    variant="rectangular"
+                    width={150}
+                    height={32}
+                    sx={{
+                      bgcolor: '#2c3e50',
+                      display: 'inline-block',
+                    }}
+                  />
                 </Then>
               </If>
               <If condition={profileMutation.isError}>
@@ -179,11 +234,9 @@ const ProfileHeader = () => {
                   <div className={styles.errorContainer}>
                     <If condition={errorUpdateProfile?.response != null}>
                       <Then>
+                        <p>{errorUpdateProfile?.response?.data?.message}</p>
                         <p>
-                          {errorUpdateProfile?.response?.data?.data?.message}
-                        </p>
-                        <p>
-                          Status code :{' '}
+                          {'Status code : '}
                           {errorUpdateProfile?.response?.data?.status}
                         </p>
                       </Then>
@@ -197,11 +250,6 @@ const ProfileHeader = () => {
             </Else>
           </If>
         </Then>
-        <Else>
-          <Button size="small" onClick={handleClick}>
-            Edit Name
-          </Button>
-        </Else>
       </If>
     </div>
   );

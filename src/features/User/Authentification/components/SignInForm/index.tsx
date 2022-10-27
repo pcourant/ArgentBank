@@ -74,7 +74,10 @@ const SignInForm = ({ toPath }: SignInProps) => {
                 <If condition={error?.response != null}>
                   <Then>
                     <p>{error?.response?.data?.message}</p>
-                    <p>Status code : {error?.response?.data?.status}</p>
+                    <p>
+                      {'Status code : '}
+                      {error?.response?.data?.status}
+                    </p>
                   </Then>
                   <Else>
                     <p>{error?.message}</p>
