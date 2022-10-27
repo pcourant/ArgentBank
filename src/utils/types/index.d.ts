@@ -9,3 +9,8 @@ interface UserContext {
     user: User;
     setUser: (user: User) => void;
 }
+
+interface ErrorResponseData {
+    message: string;
+    status: number;
+}

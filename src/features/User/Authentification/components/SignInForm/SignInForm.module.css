@@ -17,3 +17,36 @@
     margin-top: 1rem;
     font-size: 1.1rem;
 }
+
+.loaderContainer {
+    font-weight: bold;
+    color: #00bc77;
+}
+
+.loader {
+    width: 0;
+    height: 0;
+    padding: 30px;
+    margin: 50px auto;
+    text-align: center;
+    border: 10px solid #00bc77;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    animation: rotate 1s infinite linear;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.errorContainer {
+    margin-top: 2.5rem;
+    font-weight: bold;
+    color: red;
+}
