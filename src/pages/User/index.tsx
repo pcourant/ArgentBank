@@ -8,6 +8,8 @@ const User = () => {
         console.log('API: useProfile', data);
         userContext.setUser({
             ...userContext.user,
+            id: data.body.id,
+            email: data.body.email,
             firstName: data.body.firstName,
             lastName: data.body.lastName,
         });

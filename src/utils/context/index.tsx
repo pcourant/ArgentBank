@@ -2,8 +2,10 @@ import React, { createContext, useContext, useState } from 'react';
 
 const UserContext = createContext<UserContext>({
     user: {
-        firstName: '',
-        lastName: '',
+        id: undefined,
+        email: undefined,
+        firstName: undefined,
+        lastName: undefined,
     },
     setUser: (user) => {
         user;
@@ -23,8 +25,10 @@ export const UserContextProvider = ({
     children?: React.ReactNode;
 }) => {
     const [user, setUserState] = useState<User>({
-        firstName: '',
-        lastName: '',
+        id: undefined,
+        email: undefined,
+        firstName: undefined,
+        lastName: undefined,
     });
 
     const setUser = (user: User) => {

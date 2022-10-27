@@ -41,6 +41,8 @@ const ProfileHeader: FunctionComponent<ProfileHeaderProps> = ({
                 ...userContext.user,
                 firstName: name.firstName,
                 lastName: name.lastName,
+                email: data.data.body.email,
+                id: data.data.body.id,
             });
             setIsEditing((isEditing) => !isEditing);
         });
