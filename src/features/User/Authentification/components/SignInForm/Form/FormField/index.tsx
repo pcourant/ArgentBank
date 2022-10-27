@@ -1,18 +1,24 @@
-import { FunctionComponent, PropsWithChildren } from 'react';
+/* eslint-disable indent */
+import {
+    FunctionComponent,
+    PropsWithChildren,
+    ChangeEventHandler,
+    HTMLInputTypeAttribute,
+} from 'react';
 import cx from 'classnames';
 
 import styles from './FormField.module.css';
 
 type FormFieldProps = PropsWithChildren<{
-    type: string;
+    type?: HTMLInputTypeAttribute;
     name?: string;
     required?: boolean;
-    onChange?: React.ChangeEventHandler<HTMLInputElement>;
+    onChange?: ChangeEventHandler<HTMLInputElement>;
     placeholder?: string;
 }>;
 
 const FormField: FunctionComponent<FormFieldProps> = ({
-    type,
+    type = 'text',
     name,
     required = false,
     onChange,
@@ -22,6 +28,17 @@ const FormField: FunctionComponent<FormFieldProps> = ({
     const fieldClass = cx(
         type === 'checkbox' ? styles.inputRemember : styles.inputWrapper,
     );
+
+    const inputAutoCompleteSwitch = (type: HTMLInputTypeAttribute) => {
+        switch (type) {
+            case 'password':
+                return 'current-password';
+            case 'email':
+                return 'username';
+            default:
+                return undefined;
+        }
+    };
 
     return (
         <div className={fieldClass}>
@@ -33,6 +50,7 @@ const FormField: FunctionComponent<FormFieldProps> = ({
                 required={required}
                 onChange={onChange}
                 placeholder={placeholder}
+                autoComplete={inputAutoCompleteSwitch(type)}
             />
         </div>
     );
