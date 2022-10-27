@@ -12,25 +12,25 @@ import User from '@pages/User';
 import './main.css';
 
 const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <App />,
-        errorElement: <ErrorPage />,
-        children: [
-            {
-                path: 'home',
-                element: <Home />,
-            },
-            {
-                path: 'sign-in',
-                element: <SignIn />,
-            },
-            {
-                path: 'user',
-                element: <User />,
-            },
-        ],
-    },
+  {
+    path: '/',
+    element: <App />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: 'home',
+        element: <Home />,
+      },
+      {
+        path: 'sign-in',
+        element: <SignIn />,
+      },
+      {
+        path: 'user',
+        element: <User />,
+      },
+    ],
+  },
 ]);
 
 // Type Assertions : document.getElementById('root') as HTMLElement
@@ -41,11 +41,11 @@ const root = document.getElementById('root');
 const queryClient = new QueryClient();
 
 if (root != null) {
-    ReactDOM.createRoot(root).render(
-        <React.StrictMode>
-            <QueryClientProvider client={queryClient}>
-                <RouterProvider router={router} />
-            </QueryClientProvider>
-        </React.StrictMode>,
-    );
+  ReactDOM.createRoot(root).render(
+    <React.StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </React.StrictMode>,
+  );
 }

@@ -62,7 +62,5 @@
 }
 
 .errorContainer {
-    margin-top: 2.5rem;
-    font-weight: bold;
     color: red;
 }

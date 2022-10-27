@@ -1,43 +1,43 @@
 import React, { createContext, useContext, useState } from 'react';
 
 const UserContext = createContext<UserContext>({
-    user: {
-        id: undefined,
-        email: undefined,
-        firstName: undefined,
-        lastName: undefined,
-    },
-    setUser: (user) => {
-        user;
-        return;
-    },
+  user: {
+    id: undefined,
+    email: undefined,
+    firstName: undefined,
+    lastName: undefined,
+  },
+  setUser: (user) => {
+    user;
+    return;
+  },
 });
 
 export const useUserContext = () => {
-    const userContext = useContext(UserContext);
+  const userContext = useContext(UserContext);
 
-    return userContext;
+  return userContext;
 };
 
 export const UserContextProvider = ({
-    children,
+  children,
 }: {
-    children?: React.ReactNode;
+  children?: React.ReactNode;
 }) => {
-    const [user, setUserState] = useState<User>({
-        id: undefined,
-        email: undefined,
-        firstName: undefined,
-        lastName: undefined,
-    });
+  const [user, setUserState] = useState<User>({
+    id: undefined,
+    email: undefined,
+    firstName: undefined,
+    lastName: undefined,
+  });
 
-    const setUser = (user: User) => {
-        setUserState(user);
-    };
+  const setUser = (user: User) => {
+    setUserState(user);
+  };
 
-    return (
-        <UserContext.Provider value={{ user, setUser }}>
-            {children}
-        </UserContext.Provider>
-    );
+  return (
+    <UserContext.Provider value={{ user, setUser }}>
+      {children}
+    </UserContext.Provider>
+  );
 };

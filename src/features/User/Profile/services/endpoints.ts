@@ -1,3 +1,3 @@
 export const ENDPOINTS = {
-    profile: '/user/profile',
+  profile: '/user/profile',
 };
