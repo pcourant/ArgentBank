@@ -1,24 +1,7 @@
 import { User, UserContextInterface } from '@utils/types';
 import React, { createContext, useContext, useState } from 'react';
 
-const UserContext = createContext<UserContextInterface>({
-  user: {
-    id: undefined,
-    email: undefined,
-    firstName: undefined,
-    lastName: undefined,
-  },
-  setUser: (user) => {
-    user;
-    return;
-  },
-});
-
-export const useUserContext = () => {
-  const userContext = useContext(UserContext);
-
-  return userContext;
-};
+const UserContext = createContext<null | UserContextInterface>(null);
 
 export const UserContextProvider = ({
   children,
@@ -41,4 +24,14 @@ export const UserContextProvider = ({
       {children}
     </UserContext.Provider>
   );
+};
+
+export const useUserContext = () => {
+  const userContext = useContext(UserContext);
+
+  if (userContext == null) {
+    throw new Error('Need a <UserContext.Provider>');
+  }
+
+  return userContext;
 };
