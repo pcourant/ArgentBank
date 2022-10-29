@@ -1,15 +1,19 @@
 import { Link } from 'react-router-dom';
 import client from '@utils/config/axios';
-import { useUserContext } from '@utils/context';
 
 import styles from './Header.module.css';
 import Logo from '@assets/images/argentBankLogo.png';
 
+import { useAppDispatch, useAppSelector } from '@utils/redux/hooks';
+import { selectUser } from '@utils/redux/selectors';
+import { resetUser } from '@features/User';
+
 const Header = () => {
-  const { user, setUser } = useUserContext();
+  const user = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
 
   const handleSignOut = () => {
-    setUser({ ...user, firstName: '', lastName: '' });
+    dispatch(resetUser());
     client.defaults.headers.common['Authorization'] = '';
   };
 

@@ -1,36 +1,43 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent, SyntheticEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Else, If, Then } from 'react-if';
-import { AxiosError } from 'axios';
+import type { AxiosError } from 'axios';
+import { Skeleton } from '@mui/material';
+import type { ErrorResponseData } from '@utils/types';
+
+import styles from './ProfileHeader.module.css';
+import Button from '@components/Button';
+
+import { useAppDispatch, useAppSelector } from '@utils/redux/hooks';
+import { selectUser } from '@utils/redux/selectors';
+import { setUser } from '@features/User';
 import {
   useProfileUpdate,
   submitProfileUpdate,
   useProfile,
 } from '@features/User/Profile';
-import { useUserContext } from '@utils/context';
-
-import styles from './ProfileHeader.module.css';
-import Button from '@components/Button';
-import { Skeleton } from '@mui/material';
-import { ErrorResponseData } from '@utils/types';
 
 const ProfileHeader = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState({ firstName: '', lastName: '' });
-  const userContext = useUserContext();
   const navigate = useNavigate();
+
+  const user = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
 
   const profile = useProfile(
     (data) => {
-      userContext.setUser({
-        ...userContext.user,
-        id: data.body.id,
-        email: data.body.email,
-        firstName: data.body.firstName,
-        lastName: data.body.lastName,
-      });
+      dispatch(
+        setUser({
+          ...user,
+          id: data.body.id,
+          email: data.body.email,
+          firstName: data.body.firstName,
+          lastName: data.body.lastName,
+        }),
+      );
     },
-    (err: AxiosError<ErrorResponseData>) => {
+    (err) => {
       if (err.response?.data.status === 401) {
         console.error(
           'Redirection to SignIn Page because',
@@ -52,7 +59,8 @@ const ProfileHeader = () => {
     }));
   };
 
-  const handleClick = () => {
+  const handleClick = (e: SyntheticEvent) => {
+    e.preventDefault();
     setIsEditing((isEditing) => !isEditing);
   };
 
@@ -63,13 +71,15 @@ const ProfileHeader = () => {
       profileMutation,
       name,
       (data, name) => {
-        userContext.setUser({
-          ...userContext.user,
-          firstName: name.firstName,
-          lastName: name.lastName,
-          email: data.data.body.email,
-          id: data.data.body.id,
-        });
+        dispatch(
+          setUser({
+            ...user,
+            firstName: name.firstName,
+            lastName: name.lastName,
+            email: data.data.body.email,
+            id: data.data.body.id,
+          }),
+        );
         setIsEditing((isEditing) => !isEditing);
       },
       (err: AxiosError<ErrorResponseData>) => {
@@ -96,13 +106,13 @@ const ProfileHeader = () => {
             !profile.isError &&
             !profileMutation.isLoading &&
             !profileMutation.isError &&
-            userContext.user.firstName &&
-            userContext.user.lastName
+            user.firstName &&
+            user.lastName
           }
         >
           <Then>
             <span>
-              {userContext.user.firstName} {userContext.user.lastName}!
+              {user.firstName} {user.lastName}!
             </span>
           </Then>
         </If>
@@ -114,8 +124,8 @@ const ProfileHeader = () => {
           !profile.isError &&
           !profileMutation.isLoading &&
           !profileMutation.isError &&
-          userContext.user.firstName &&
-          userContext.user.lastName
+          user.firstName &&
+          user.lastName
         }
       >
         <Then>
@@ -144,9 +154,7 @@ const ProfileHeader = () => {
           <Else>
             <If
               condition={
-                (!profile.isError &&
-                  !userContext.user.firstName &&
-                  !userContext.user.lastName) ||
+                (!profile.isError && !user.firstName && !user.lastName) ||
                 profile.isLoading
               }
             >
@@ -187,7 +195,7 @@ const ProfileHeader = () => {
                   id="firstName"
                   name="firstName"
                   required
-                  placeholder={userContext.user.firstName}
+                  placeholder={user.firstName}
                   onChange={handleChange}
                 ></input>
                 <input
@@ -196,7 +204,7 @@ const ProfileHeader = () => {
                   id="lastName"
                   name="lastName"
                   required
-                  placeholder={userContext.user.lastName}
+                  placeholder={user.lastName}
                   onChange={handleChange}
                 ></input>
                 <div className={styles.buttonsContainer}>

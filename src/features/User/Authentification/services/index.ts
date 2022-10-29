@@ -2,21 +2,9 @@ import { useMutation } from 'react-query';
 import client from '@utils/config/axios';
 
 import { ENDPOINTS } from './endpoints';
-import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorResponseData } from '@utils/types';
-
-interface LoginResponse {
-  status: number;
-  message: string;
-  body: Token;
-}
-interface Token {
-  token: string;
-}
-interface Credentials {
-  email: string;
-  password: string;
-}
+import type { AxiosError, AxiosResponse } from 'axios';
+import type { ErrorResponseData } from '@utils/types';
+import type { LoginResponse, Credentials } from './types';
 
 const login = (credentials: Credentials) => {
   return client.post<LoginResponse>(ENDPOINTS.login, credentials);
@@ -39,7 +27,7 @@ export const submitLogin = (
 ) => {
   loginMutation.mutate(credentials, {
     onSuccess: (data) => {
-      console.log('API: submitLogin', data);
+      // console.log('API: submitLogin', data);
       client.defaults.headers.common[
         'Authorization'
       ] = `Bearer ${data.data.body.token}`;

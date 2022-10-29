@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { Provider } from 'react-redux';
 
+import store from '@utils/redux/store';
 import App from '@pages/App';
 import ErrorPage from '@pages/ErrorPage';
 import Home from '@pages/Home';
@@ -42,10 +44,12 @@ const queryClient = new QueryClient();
 
 if (root != null) {
   ReactDOM.createRoot(root).render(
-    <React.StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
-    </React.StrictMode>,
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <React.StrictMode>
+          <RouterProvider router={router} />
+        </React.StrictMode>
+      </Provider>
+    </QueryClientProvider>,
   );
 }

@@ -1,4 +1,4 @@
-import { User, UserContextInterface } from '@utils/types';
+import type { User, UserContextInterface } from '@utils/types';
 import React, { createContext, useContext, useState } from 'react';
 
 const UserContext = createContext<null | UserContextInterface>(null);

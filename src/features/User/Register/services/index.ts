@@ -22,7 +22,7 @@ interface RegisterResponseBody {
 }
 const useRegister = (registerPayload: RegisterPayload) => {
   return useQuery(
-    ['posts'],
+    ['registers'],
     async () => {
       const { data } = await client.post<RegisterResponse>(
         ENDPOINTS.signup,
