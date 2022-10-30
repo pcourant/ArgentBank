@@ -66,15 +66,16 @@ paths:
       summary: User Profile API
       description: API for fetching a user profile
       parameters:
-        - in: header
-          name: Authorization
+        - name: Authorization
+          in: header
+          type: string
           description: Attach Bearer JWT token
           required: true
       produces:
         - application/json
       responses:
         '200':
-          description: User profile retrieved successully
+          description: User profile retrieved successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
@@ -89,8 +90,9 @@ paths:
       summary: User Profile API
       description: API for updating a user profile
       parameters:
-        - in: header
-          name: Authorization
+        - name: Authorization
+          in: header
+          type: string
           description: Attach Bearer JWT token
           required: true
         - in: body
@@ -103,11 +105,116 @@ paths:
         - application/json
       responses:
         '200':
-          description: User profile retrieved successully
+          description: User profile retrieved successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
           description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /transactions:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Get the transactions of the current month
+      description: API for fetching transactions of the current month
+      parameters:
+        - name: Authorization
+          in: header
+          type: string
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transactions retrieved successfully
+          schema:
+            $ref: '#/definitions/Transactions'
+        '400':
+          description: Invalid Fields
+        '401':
+          description: Authorization information is missing or invalid.
+        '500':
+          description: Internal Server Error
+  /transactions/{id}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Gets a transaction by ID
+      description: API for fetching a transaction
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: Authorization
+          in: header
+          type: string
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction retrieved successfully
+          schema:
+            $ref: '#/definitions/Transaction'
+        '400':
+          description: Invalid Fields
+        '401':
+          description: Authorization information is missing or invalid.
+        '404':
+          description: Not found.
+        '500':
+          description: Internal Server Error
+    patch:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Apply a set of changes to a transaction
+      description: API for patching a transaction
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: Authorization
+          in: header
+          type: string
+          description: Attach Bearer JWT token
+          required: true
+        - in: body
+          name: body
+          description: Update transaction attributes
+          required: true
+          schema:
+            type: object
+            properties:
+              category:
+                type: string
+                description: New category
+              notes:
+                type: string
+                description: New notes
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction patched successfully
+          schema:
+            $ref: '#/definitions/Transaction'
+        '400':
+          description: Invalid Fields
+        '401':
+          description: Authorization information is missing or invalid.
+        '404':
+          description: Not found.
         '500':
           description: Internal Server Error
 securityDefinitions:
@@ -164,3 +271,58 @@ definitions:
         type: string
       lastName:
         type: string
+  Transaction:
+    type: object
+    properties:
+      id:
+        type: string
+        description: transaction id
+      accountID:
+        type: string
+        example: "x67124"
+        description: account id of the transaction
+      userID:
+        type: string
+        description: user id who made the transaction
+      date:
+        type: string
+        description: date the transacation was made
+        format: date
+        pattern: "YYYY-MM-DD"
+        example: "2017-01-01"
+      description:
+        type: string
+        example: "Golden Sun Bakery"
+      amount:
+        type: integer
+        description: transaction amount in cents
+        example: "500"
+      balance:
+        type: integer
+        description: balance in cents after transaction
+        example: "208279"
+      type:
+        type: string
+        example: "Electronic"
+      category:
+        type: string
+        example: "Food"
+      notes:
+        type: string
+        example: "Christmas shopping"
+  Transactions:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          transactions:
+            type: array
+            description: transaction of the current month
+            items:
+              $ref: '#/definitions/Transaction'
+  
