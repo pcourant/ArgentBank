@@ -29,7 +29,7 @@ Then, launch the app
 pnpm dev
 ```
 
-Finally, open your local browser on : [http://localhost:3000/](http://localhost:3000/)
+Finally, open a tab on your local browser : [http://localhost:3000/](http://localhost:3000/)
 
 For the API data, install and launch the [back-end app](https://github.com/pcourant/Project-10-Bank-API) on port 3001 :
 ```console
@@ -42,7 +42,7 @@ npm run server
 
 ## API Documentation
 
-Once the backend running, open in your browser: open your local browser on : [http://localhost:3001/api-docs/](http://localhost:3001/api-docs/)
+Once the backend running, open a tab your local browser : [http://localhost:3001/api-docs/](http://localhost:3001/api-docs/)
 
 ## Author
 
