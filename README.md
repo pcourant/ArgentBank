@@ -1,4 +1,4 @@
-# Argent Bank
+# Argent Bank front-end app
 
 ## Technologies
 
