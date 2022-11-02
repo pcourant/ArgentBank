@@ -31,14 +31,7 @@ pnpm dev
 
 Finally, open a tab on your local browser : [http://localhost:3000/](http://localhost:3000/)
 
-For the API data, install and launch the [back-end app](https://github.com/pcourant/Project-10-Bank-API) on port 3001 :
-```console
-nvm use 12
-git clone https://github.com/pcourant/Project-10-Bank-API.git argentbank_backend
-cd argentbank_backend
-npm install
-npm run server
-```
+For the API data, install and launch the [back-end app](https://github.com/pcourant/Project-10-Bank-API) on port 3001.
 
 ## API Documentation
 
