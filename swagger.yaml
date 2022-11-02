@@ -130,7 +130,7 @@ paths:
         - application/json
       responses:
         '200':
-          description: Transactions retrieved successfully
+          description: Transactions of the current month retrieved successfully
           schema:
             $ref: '#/definitions/Transactions'
         '400':
@@ -169,7 +169,7 @@ paths:
         '401':
           description: Authorization information is missing or invalid.
         '404':
-          description: Not found.
+          description: Transaction not found.
         '500':
           description: Internal Server Error
     patch:
@@ -214,7 +214,7 @@ paths:
         '401':
           description: Authorization information is missing or invalid.
         '404':
-          description: Not found.
+          description: Transaction not found.
         '500':
           description: Internal Server Error
 securityDefinitions:

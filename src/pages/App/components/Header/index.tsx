@@ -19,7 +19,7 @@ const Header = () => {
 
   return (
     <nav className={styles.mainNav}>
-      <Link className={styles.mainNavLogo} to={'home'}>
+      <Link className={styles.mainNavLogo} to={''}>
         <img
           className={styles.mainNavLogoImage}
           src={Logo}
@@ -30,17 +30,13 @@ const Header = () => {
       <div className={styles.mainNavItemContainer}>
         <Link
           className={styles.mainNavItem}
-          to={user.firstName ? 'user' : 'sign-in'}
+          to={user.firstName ? 'profile' : 'login'}
         >
           <i className="fa fa-user-circle"></i>
           {user.firstName ? user.firstName : 'Sign In'}
         </Link>
         {user.firstName ? (
-          <Link
-            className={styles.mainNavItem}
-            to="home"
-            onClick={handleSignOut}
-          >
+          <Link className={styles.mainNavItem} to="" onClick={handleSignOut}>
             <i className="fa fa-sign-out"></i>
             Sign Out
           </Link>

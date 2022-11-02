@@ -3,7 +3,7 @@ import { SignInForm } from '@features/User/Authentification';
 const SignIn = () => {
   return (
     <main className={'main bg-dark'}>
-      <SignInForm toPath={'/user'} />
+      <SignInForm toPath={'/profile'} />
     </main>
   );
 };

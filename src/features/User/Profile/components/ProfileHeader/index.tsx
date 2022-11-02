@@ -43,7 +43,7 @@ const ProfileHeader = () => {
           'Redirection to SignIn Page because',
           err.response?.data.message,
         );
-        navigate('/sign-in');
+        navigate('/login');
       }
     },
   );
@@ -88,7 +88,7 @@ const ProfileHeader = () => {
             'Redirection to SignIn Page because',
             err.response?.data.message,
           );
-          navigate('/sign-in');
+          navigate('/login');
         }
       },
     );
