@@ -1,17 +1,10 @@
 import type { AxiosError } from 'axios';
 
 export interface User {
-  id: string | undefined;
-  email: string | undefined;
+  isAuthenticated: boolean;
   firstName: string | undefined;
   lastName: string | undefined;
 }
-
-export interface UserContextInterface {
-  user: User;
-  setUser: (user: User) => void;
-}
-
 export interface ErrorResponseData {
   message: string;
   status: number;

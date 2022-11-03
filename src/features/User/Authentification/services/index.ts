@@ -3,7 +3,7 @@ import client from '@utils/config/axios';
 
 import { ENDPOINTS } from './endpoints';
 import type { AxiosError, AxiosResponse } from 'axios';
-import type { ErrorResponseData } from '@utils/types';
+import type { ErrorResponseData, OnError } from '@utils/types';
 import type { LoginResponse, Credentials } from './types';
 
 const login = (credentials: Credentials) => {
@@ -23,18 +23,17 @@ type LoginMutationType = ReturnType<typeof useLogin>;
 export const submitLogin = (
   loginMutation: LoginMutationType,
   credentials: Credentials,
-  onSuccess: () => void,
+  onSuccess: (data: AxiosResponse<LoginResponse>) => void,
+  onError: OnError,
 ) => {
   loginMutation.mutate(credentials, {
     onSuccess: (data) => {
       // console.log('API: submitLogin', data);
-      client.defaults.headers.common[
-        'Authorization'
-      ] = `Bearer ${data.data.body.token}`;
-      onSuccess();
+      onSuccess(data);
     },
     onError: (err) => {
       console.error('API: submitLogin', err);
+      onError(err);
     },
   });
 };

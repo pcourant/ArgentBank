@@ -1,20 +1,18 @@
 import { Link } from 'react-router-dom';
-import client from '@utils/config/axios';
 
 import styles from './Header.module.css';
 import Logo from '@assets/images/argentBankLogo.png';
 
 import { useAppDispatch, useAppSelector } from '@utils/redux/hooks';
 import { selectUser } from '@utils/redux/selectors';
-import { resetUser } from '@features/User';
+import { signOutUser } from '@features/User';
 
 const Header = () => {
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
 
   const handleSignOut = () => {
-    dispatch(resetUser());
-    client.defaults.headers.common['Authorization'] = '';
+    dispatch(signOutUser());
   };
 
   return (
@@ -30,12 +28,12 @@ const Header = () => {
       <div className={styles.mainNavItemContainer}>
         <Link
           className={styles.mainNavItem}
-          to={user.firstName ? 'profile' : 'login'}
+          to={user.isAuthenticated ? 'profile' : 'login'}
         >
           <i className="fa fa-user-circle"></i>
-          {user.firstName ? user.firstName : 'Sign In'}
+          {user.isAuthenticated ? user.firstName : 'Sign In'}
         </Link>
-        {user.firstName ? (
+        {user.isAuthenticated ? (
           <Link className={styles.mainNavItem} to="" onClick={handleSignOut}>
             <i className="fa fa-sign-out"></i>
             Sign Out

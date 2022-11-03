@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import client from '@utils/config/axios';
 import type { User } from '@utils/types';
 
 // Define the initial state using that type
 const initialState: User = {
-  id: undefined,
-  email: undefined,
+  isAuthenticated: false,
   firstName: undefined,
   lastName: undefined,
 };
@@ -21,14 +21,15 @@ const userSlice = createSlice({
     setUser: (_state, action: PayloadAction<User>) => {
       return action.payload;
     },
-    resetUser: () => {
+    signOutUser: () => {
+      client.defaults.headers.common['Authorization'] = '';
       return initialState;
     },
   },
 });
 
 // on export chaque action individuellement
-export const { setUser, resetUser } = userSlice.actions;
+export const { setUser, signOutUser } = userSlice.actions;
 
 // on export le reducer comme default export
 export default userSlice.reducer;

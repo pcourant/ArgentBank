@@ -10,7 +10,7 @@ import Button from '@components/Button';
 
 import { useAppDispatch, useAppSelector } from '@utils/redux/hooks';
 import { selectUser } from '@utils/redux/selectors';
-import { setUser } from '@features/User';
+import { setUser, signOutUser } from '@features/User';
 import {
   useProfileUpdate,
   submitProfileUpdate,
@@ -30,8 +30,6 @@ const ProfileHeader = () => {
       dispatch(
         setUser({
           ...user,
-          id: data.body.id,
-          email: data.body.email,
           firstName: data.body.firstName,
           lastName: data.body.lastName,
         }),
@@ -43,6 +41,7 @@ const ProfileHeader = () => {
           'Redirection to SignIn Page because',
           err.response?.data.message,
         );
+        dispatch(signOutUser());
         navigate('/login');
       }
     },
@@ -76,8 +75,6 @@ const ProfileHeader = () => {
             ...user,
             firstName: name.firstName,
             lastName: name.lastName,
-            email: data.data.body.email,
-            id: data.data.body.id,
           }),
         );
         setIsEditing((isEditing) => !isEditing);
@@ -88,6 +85,7 @@ const ProfileHeader = () => {
             'Redirection to SignIn Page because',
             err.response?.data.message,
           );
+          dispatch(signOutUser());
           navigate('/login');
         }
       },
