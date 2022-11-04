@@ -1,3 +1,4 @@
+import { NameInterface } from '@utils/types';
 import type { AxiosResponse } from 'axios';
 
 interface ProfileResponseBody {
@@ -16,11 +17,6 @@ export interface ProfileResponse {
 }
 
 export type ProfileOnSuccess = (data: ProfileResponse) => void;
-
-export interface NameInterface {
-  firstName: string;
-  lastName: string;
-}
 
 interface ProfileUpdateResponseBody {
   id: string;

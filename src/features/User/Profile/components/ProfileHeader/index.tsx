@@ -10,7 +10,7 @@ import Button from '@components/Button';
 
 import { useAppDispatch, useAppSelector } from '@utils/redux/hooks';
 import { selectUser } from '@utils/redux/selectors';
-import { setUser, signOutUser } from '@features/User';
+import * as userActions from '@features/User';
 import {
   useProfileUpdate,
   submitProfileUpdate,
@@ -28,8 +28,7 @@ const ProfileHeader = () => {
   const profile = useProfile(
     (data) => {
       dispatch(
-        setUser({
-          ...user,
+        userActions.setName({
           firstName: data.body.firstName,
           lastName: data.body.lastName,
         }),
@@ -41,7 +40,7 @@ const ProfileHeader = () => {
           'Redirection to SignIn Page because',
           err.response?.data.message,
         );
-        dispatch(signOutUser());
+        dispatch(userActions.signOut());
         navigate('/login');
       }
     },
@@ -71,8 +70,7 @@ const ProfileHeader = () => {
       name,
       (data, name) => {
         dispatch(
-          setUser({
-            ...user,
+          userActions.setName({
             firstName: name.firstName,
             lastName: name.lastName,
           }),
@@ -85,7 +83,7 @@ const ProfileHeader = () => {
             'Redirection to SignIn Page because',
             err.response?.data.message,
           );
-          dispatch(signOutUser());
+          dispatch(userActions.signOut());
           navigate('/login');
         }
       },
@@ -194,6 +192,7 @@ const ProfileHeader = () => {
                   name="firstName"
                   required
                   placeholder={user.firstName}
+                  autoComplete="given-name"
                   onChange={handleChange}
                 ></input>
                 <input
@@ -203,6 +202,7 @@ const ProfileHeader = () => {
                   name="lastName"
                   required
                   placeholder={user.lastName}
+                  autoComplete="family-name"
                   onChange={handleChange}
                 ></input>
                 <div className={styles.buttonsContainer}>

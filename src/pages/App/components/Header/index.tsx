@@ -5,14 +5,14 @@ import Logo from '@assets/images/argentBankLogo.png';
 
 import { useAppDispatch, useAppSelector } from '@utils/redux/hooks';
 import { selectUser } from '@utils/redux/selectors';
-import { signOutUser } from '@features/User';
+import * as userActions from '@features/User';
 
 const Header = () => {
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
 
   const handleSignOut = () => {
-    dispatch(signOutUser());
+    dispatch(userActions.signOut());
   };
 
   return (

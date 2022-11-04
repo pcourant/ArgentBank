@@ -1,5 +1,10 @@
 import type { AxiosError } from 'axios';
 
+export interface NameInterface {
+  firstName: string;
+  lastName: string;
+}
+
 export interface User {
   isAuthenticated: boolean;
   firstName: string | undefined;

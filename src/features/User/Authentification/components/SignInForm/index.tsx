@@ -9,17 +9,14 @@ import FormField from './Form/FormField';
 
 import Button from '@components/Button';
 import { useLogin, submitLogin } from '@features/User/Authentification/';
-import client from '@utils/config/axios';
-import { useAppDispatch, useAppSelector } from '@utils/redux/hooks';
-import { selectUser } from '@utils/redux/selectors';
-import { setUser } from '@features/User';
+import { useAppDispatch } from '@utils/redux/hooks';
+import * as userActions from '@features/User';
 
 type SignInProps = {
   toPath?: string;
 };
 const SignInForm = ({ toPath }: SignInProps) => {
   const navigate = useNavigate();
-  const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const loginMutation = useLogin();
 
@@ -35,15 +32,7 @@ const SignInForm = ({ toPath }: SignInProps) => {
       loginMutation,
       { email, password },
       (data) => {
-        client.defaults.headers.common[
-          'Authorization'
-        ] = `Bearer ${data.data.body.token}`;
-        dispatch(
-          setUser({
-            ...user,
-            isAuthenticated: true,
-          }),
-        );
+        dispatch(userActions.signIn(data.data.body.token));
         if (toPath) navigate(toPath);
       },
       () => null,

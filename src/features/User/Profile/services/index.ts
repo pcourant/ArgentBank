@@ -1,16 +1,15 @@
 import { useQuery, useMutation } from 'react-query';
 import client from '@utils/config/axios';
 import type { AxiosError, AxiosResponse } from 'axios';
+import type { ErrorResponseData, NameInterface, OnError } from '@utils/types';
 import type {
   ProfileResponse,
   ProfileOnSuccess,
-  NameInterface,
   ProfileUpdateResponse,
   ProfileUpdateOnSuccess,
 } from './types';
 
 import { ENDPOINTS } from './endpoints';
-import type { ErrorResponseData, OnError } from '@utils/types';
 
 const useProfile = (onSuccess: ProfileOnSuccess, onError: OnError) => {
   return useQuery<unknown, AxiosError<ErrorResponseData>, ProfileResponse>(

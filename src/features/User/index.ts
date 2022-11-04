@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import client from '@utils/config/axios';
-import type { User } from '@utils/types';
+import type { NameInterface, User } from '@utils/types';
 
 // Define the initial state using that type
 const initialState: User = {
@@ -17,19 +17,25 @@ const userSlice = createSlice({
   initialState,
   // reducers permet de définir les actions et le reducer
   reducers: {
-    // l'action set ('user/set')
-    setUser: (_state, action: PayloadAction<User>) => {
-      return action.payload;
+    signIn: (state, action: PayloadAction<string>) => {
+      client.defaults.headers.common[
+        'Authorization'
+      ] = `Bearer ${action.payload}`;
+      state.isAuthenticated = true;
     },
-    signOutUser: () => {
+    signOut: () => {
       client.defaults.headers.common['Authorization'] = '';
       return initialState;
+    },
+    setName: (state, action: PayloadAction<NameInterface>) => {
+      state.firstName = action.payload.firstName;
+      state.lastName = action.payload.lastName;
     },
   },
 });
 
 // on export chaque action individuellement
-export const { setUser, signOutUser } = userSlice.actions;
+export const { setName, signIn, signOut } = userSlice.actions;
 
 // on export le reducer comme default export
 export default userSlice.reducer;
