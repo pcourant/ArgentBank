@@ -18,7 +18,7 @@
 
 ## Installation
 ```console
-git clone https://github.com/pcourant/PierreCourant_13_15102022.git argentbank_frontend
+git clone https://github.com/pcourant/ArgentBank.git argentbank_frontend
 cd argentbank_frontend
 pnpm install
 ```
