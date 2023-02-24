@@ -5,20 +5,21 @@ import checker from 'vite-plugin-checker';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    // plugins: [react()],
-    plugins: [
-        react(),
-        tsconfigPaths(),
-        !process.env.VITEST
-            ? checker({
-                  typescript: true,
-                  eslint: {
-                      lintCommand: 'eslint "./src/**/*.{ts,tsx}"',
-                  },
-              })
-            : undefined,
-    ],
-    // resolve: {
-    //     alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
-    // },
+  base: `/PierreCourant_13_15102022/`,
+  // plugins: [react()],
+  plugins: [
+    react(),
+    tsconfigPaths(),
+    !process.env.VITEST
+      ? checker({
+          typescript: true,
+          eslint: {
+            lintCommand: 'eslint "./src/**/*.{ts,tsx}"',
+          },
+        })
+      : undefined,
+  ],
+  // resolve: {
+  //     alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
+  // },
 });

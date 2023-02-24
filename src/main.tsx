@@ -15,7 +15,7 @@ import './main.css';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/PierreCourant_13_15102022/',
     element: <App />,
     errorElement: <ErrorPage />,
     children: [

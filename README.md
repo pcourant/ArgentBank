@@ -1,5 +1,7 @@
 # Argent Bank front-end app
 
+[**ArgentBank Live**](https://pcourant.github.io/PierreCourant_13_15102022/)
+
 ## Technologies
 
 - Pnpm
@@ -17,15 +19,19 @@
 - [Pnpm >=3](https://pnpm.io/installation)
 
 ## Installation
+
 ```console
-git clone https://github.com/pcourant/ArgentBank.git argentbank_frontend
+git clone https://github.com/pcourant/PierreCourant_13_15102022.git argentbank_frontend
 cd argentbank_frontend
 pnpm install
 ```
+
 Then, launch the app
+
 ```console
 pnpm dev
 ```
+
 Finally, open a tab on your local browser : [http://localhost:3000/](http://localhost:3000/)
 
 For the API data, install and launch the [back-end app](https://github.com/pcourant/Project-10-Bank-API) on port 3001.
